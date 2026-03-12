@@ -9,12 +9,13 @@ import {
 
 const links = [
   { href: '/custom', label: 'Custom Components', description: 'Library of Custom Components' },
+  { href: '/components', label: 'UI Components', description: 'Shadcn UI Component Library' },
 ];
 
 export default function Home() {
   return (
     <main className="w-full h-screen flex flex-col items-center gap-8 p-8 text-foreground">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-screen-lg">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-5xl">
         {links.map(({ href, label, description }) => (
           <Link key={href} href={href}>
             <div className="cursor-pointer h-full">
@@ -23,7 +24,7 @@ export default function Home() {
                   <CardTitle>{label}</CardTitle>
                   <CardDescription>{description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow">
+                <CardContent className="grow">
                   <p>Learn more about {label.toLowerCase()}.</p>
                 </CardContent>
               </Card>

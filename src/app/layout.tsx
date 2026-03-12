@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider"
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Inter as FontSans } from "next/font/google"
-import { cn } from "@/lib/utils"
-import Navbar from "@/components/Navbar";
-import BreadcrumbNavigation from "@/components/BreadcrumbNavigation";
-import Footer from "@/components/Footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const fontSans = FontSans({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-sans",
-})
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,22 +26,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body
-        className={cn(
-          "",
-          fontSans.variable
-        )}
-      ><ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-          <Navbar />
-          <BreadcrumbNavigation />
-          {children}
-          <Footer />
-        </ThemeProvider></body>
+        <TooltipProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </TooltipProvider>
+      </body>
     </html>
   );
 }
