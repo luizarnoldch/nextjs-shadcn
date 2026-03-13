@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,32 +14,40 @@ type useUpdateFileProps = {
   onSettled?: () => void;
 };
 
-const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpdateFileProps = {}) => {
+const useUpdateFile = ({
+  file,
+  onSuccess,
+  onError,
+  onMutate,
+  onSettled,
+}: useUpdateFileProps = {}) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
   const revalidateFileList = () => {
     queryClient.invalidateQueries(trpc.file.list.queryOptions());
-  }
+  };
 
-  const mutation = useMutation(trpc.file.update.mutationOptions({
-    onSuccess: async (data, variables) => {
-      onSuccess?.();
-      form.reset(data as UpdateFileType);
-      toast.success("File updated successfully");
-    },
-    onError: (error, variables) => {
-      onError?.(error);
-      toast.error("File update failed");
-    },
-    onMutate: async (variables) => {
-      onMutate?.();
-      return undefined;
-    },
-    onSettled: async (data, error, variables) => {
-      onSettled?.();
-    },
-  }));
+  const mutation = useMutation(
+    trpc.file.update.mutationOptions({
+      onSuccess: async (data, variables) => {
+        onSuccess?.();
+        form.reset(data as UpdateFileType);
+        toast.success("File updated successfully");
+      },
+      onError: (error, variables) => {
+        onError?.(error);
+        toast.error("File update failed");
+      },
+      onMutate: async (variables) => {
+        onMutate?.();
+        return undefined;
+      },
+      onSettled: async (data, error, variables) => {
+        onSettled?.();
+      },
+    }),
+  );
 
   const form = useForm({
     defaultValues: {
@@ -68,4 +76,3 @@ const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpd
 };
 
 export default useUpdateFile;
-

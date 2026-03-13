@@ -30,10 +30,9 @@ export default function InputOtpDemoPage() {
     if (separator) imports.push("InputOTPSeparator");
     if (showLabel) imports.push("Label");
 
-    const importStr =
-      imports.includes("Label")
-        ? `import { InputOTP, InputOTPGroup, InputOTPSlot${separator ? ", InputOTPSeparator" : ""} } from "(@/components/ui/input-otp")\nimport { Label } from "(@/components/ui/label")`
-        : `import { InputOTP, InputOTPGroup, InputOTPSlot${separator ? ", InputOTPSeparator" : ""} } from "(@/components/ui/input-otp")`;
+    const importStr = imports.includes("Label")
+      ? `import { InputOTP, InputOTPGroup, InputOTPSlot${separator ? ", InputOTPSeparator" : ""} } from "(@/components/ui/input-otp")\nimport { Label } from "(@/components/ui/label")`
+      : `import { InputOTP, InputOTPGroup, InputOTPSlot${separator ? ", InputOTPSeparator" : ""} } from "(@/components/ui/input-otp")`;
 
     // slots generator
     let slotsArr = [];
@@ -53,12 +52,15 @@ export default function InputOtpDemoPage() {
       `maxLength={${length}}`,
       disabled ? `disabled` : "",
       invalid ? `aria-invalid={true}` : "",
-    ].filter(Boolean).join(" ");
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     const input = `    <InputOTP ${inputProps}>\n${group}\n    </InputOTP>`;
 
     const label = showLabel
-      ? `    <Label htmlFor="otp-demo">OTP</Label>\n` : "";
+      ? `    <Label htmlFor="otp-demo">OTP</Label>\n`
+      : "";
 
     const wrapper = showLabel
       ? `  <div className="grid w-full max-w-sm items-center gap-1.5">\n${label}${input}\n  </div>`
@@ -80,40 +82,84 @@ ${wrapper}
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="text-pink-400">import</span>`)
-    .replace(/export default function/g, `<span class="text-pink-400">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="text-pink-400">export default function</span>`,
+    )
     .replace(/return/g, `<span class="text-pink-400">return</span>`)
     // Tags
-    .replace(/&lt;(\/?)InputOTP(.*?)&gt;/g, `&lt;$1<span class="text-emerald-400">InputOTP</span>$2&gt;`)
-    .replace(/&lt;(\/?)InputOTPGroup(.*?)&gt;/g, `&lt;$1<span class="text-emerald-400">InputOTPGroup</span>$2&gt;`)
-    .replace(/&lt;(\/?)InputOTPSlot(.*?)&gt;/g, `&lt;$1<span class="text-emerald-400">InputOTPSlot</span>$2&gt;`)
-    .replace(/&lt;(\/?)InputOTPSeparator(.*?)&gt;/g, `&lt;$1<span class="text-emerald-400">InputOTPSeparator</span>$2&gt;`)
-    .replace(/&lt;(\/?)Label(.*?)&gt;/g, `&lt;$1<span class="text-emerald-400">Label</span>$2&gt;`)
-    .replace(/&lt;(\/?)div(.*?)&gt;/g, `&lt;$1<span class="text-emerald-400">div</span>$2&gt;`)
+    .replace(
+      /&lt;(\/?)InputOTP(.*?)&gt;/g,
+      `&lt;$1<span class="text-emerald-400">InputOTP</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)InputOTPGroup(.*?)&gt;/g,
+      `&lt;$1<span class="text-emerald-400">InputOTPGroup</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)InputOTPSlot(.*?)&gt;/g,
+      `&lt;$1<span class="text-emerald-400">InputOTPSlot</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)InputOTPSeparator(.*?)&gt;/g,
+      `&lt;$1<span class="text-emerald-400">InputOTPSeparator</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Label(.*?)&gt;/g,
+      `&lt;$1<span class="text-emerald-400">Label</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)div(.*?)&gt;/g,
+      `&lt;$1<span class="text-emerald-400">div</span>$2&gt;`,
+    )
     // Attributes
-    .replace(/ className=\"([^\"]+)\"/g, ` <span class="text-purple-400">className</span>=\"<span class="text-blue-400">$1</span>\"`)
-    .replace(/ length=\"?([0-9]+)\"?/g, ` <span class="text-purple-400">length</span>=<span class="text-blue-400">$1</span>`)
-    .replace(/ value=\"([^\"]*)\"/g, ` <span class="text-purple-400">value</span>=\"<span class="text-blue-400">$1</span>\"`)
-    .replace(/ value=\{value\}/g, ` <span class="text-purple-400">value</span>=&#123;<span class="text-blue-400">value</span>&#125;`)
-    .replace(/ onChange=\{setValue\}/g, ` <span class="text-purple-400">onChange</span>=&#123;<span class="text-blue-400">setValue</span>&#125;`)
+    .replace(
+      / className=\"([^\"]+)\"/g,
+      ` <span class="text-purple-400">className</span>=\"<span class="text-blue-400">$1</span>\"`,
+    )
+    .replace(
+      / length=\"?([0-9]+)\"?/g,
+      ` <span class="text-purple-400">length</span>=<span class="text-blue-400">$1</span>`,
+    )
+    .replace(
+      / value=\"([^\"]*)\"/g,
+      ` <span class="text-purple-400">value</span>=\"<span class="text-blue-400">$1</span>\"`,
+    )
+    .replace(
+      / value=\{value\}/g,
+      ` <span class="text-purple-400">value</span>=&#123;<span class="text-blue-400">value</span>&#125;`,
+    )
+    .replace(
+      / onChange=\{setValue\}/g,
+      ` <span class="text-purple-400">onChange</span>=&#123;<span class="text-blue-400">setValue</span>&#125;`,
+    )
     .replace(/ disabled/g, ` <span class="text-purple-400">disabled</span>`)
-    .replace(/ aria-invalid=\{([^}]+)\}/g, ` <span class="text-purple-400">aria-invalid</span>=&#123;<span class="text-blue-400">$1</span>&#125;`);
+    .replace(
+      / aria-invalid=\{([^}]+)\}/g,
+      ` <span class="text-purple-400">aria-invalid</span>=&#123;<span class="text-blue-400">$1</span>&#125;`,
+    );
 
   return (
     <div className="flex flex-col gap-6 p-4">
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Input OTP</h1>
         <p className="text-muted-foreground">
-          Componente para ingresar códigos OTP. Prueba las variaciones y copia el código generado.
+          Componente para ingresar códigos OTP. Prueba las variaciones y copia
+          el código generado.
         </p>
       </div>
 
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controles */}
         <div className="flex flex-col gap-6 w-full xl:w-100 p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuración</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuración
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Propiedades</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Propiedades
+            </h3>
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Cantidad de dígitos</span>
               <div className="grid grid-cols-5 gap-2">
@@ -143,7 +189,9 @@ ${wrapper}
 
             <div className="border-t border-border/50 my-2" />
 
-            <h3 className="text-md font-medium text-muted-foreground">Estado & Composición</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Estado & Composición
+            </h3>
 
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Con Label</span>
@@ -186,7 +234,10 @@ ${wrapper}
           <div className="relative z-10 w-full flex justify-center p-8 bg-card border rounded-xl shadow-sm min-w-75 overflow-hidden">
             {showLabel ? (
               <div className="grid w-full max-w-sm items-center gap-1.5 transition-all">
-                <Label htmlFor="otp-demo" className={invalid ? "text-destructive" : ""}>
+                <Label
+                  htmlFor="otp-demo"
+                  className={invalid ? "text-destructive" : ""}
+                >
                   OTP
                 </Label>
                 <InputOTP
@@ -206,7 +257,7 @@ ${wrapper}
                         </React.Fragment>
                       ) : (
                         <InputOTPSlot key={i} index={i} />
-                      )
+                      ),
                     )}
                   </InputOTPGroup>
                 </InputOTP>
@@ -228,7 +279,7 @@ ${wrapper}
                       </React.Fragment>
                     ) : (
                       <InputOTPSlot key={i} index={i} />
-                    )
+                    ),
                   )}
                 </InputOTPGroup>
               </InputOTP>
@@ -239,7 +290,9 @@ ${wrapper}
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Código generado</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Código generado
+          </h2>
           <Button
             variant="secondary"
             size="sm"

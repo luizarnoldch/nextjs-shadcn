@@ -2,7 +2,14 @@
 
 import { useSuspenseListFiles } from "../hooks/useSuspenseListFiles";
 import useDeleteFile from "../hooks/useDeleteFile";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -61,7 +68,9 @@ export default function FileTable() {
                 <TableCell>{file.type}</TableCell>
                 <TableCell>{file.size}</TableCell>
                 <TableCell>{file.state}</TableCell>
-                <TableCell>{format(new Date(file.uploadedAt), "MMM d, yyyy")}</TableCell>
+                <TableCell>
+                  {format(new Date(file.uploadedAt), "MMM d, yyyy")}
+                </TableCell>
                 <TableCell className="text-right">
                   <Button
                     variant="destructive"

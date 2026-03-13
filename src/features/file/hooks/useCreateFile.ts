@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,32 +14,39 @@ type useCreateFileProps = {
   onSettled?: () => void;
 };
 
-const useCreateFile = ({ onSuccess, onError, onMutate, onSettled }: useCreateFileProps = {}) => {
+const useCreateFile = ({
+  onSuccess,
+  onError,
+  onMutate,
+  onSettled,
+}: useCreateFileProps = {}) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
   const revalidateFileList = () => {
     queryClient.invalidateQueries(trpc.file.list.queryOptions());
-  }
+  };
 
-  const mutation = useMutation(trpc.file.create.mutationOptions({
-    onSuccess: async () => {
-      onSuccess?.();
-      form.reset();
-      toast.success("File created successfully");
-    },
-    onError: (error) => {
-      onError?.(error);
-      toast.error("File creation failed");
-    },
-    onMutate: async () => {
-      onMutate?.();
-      return undefined;
-    },
-    onSettled: async () => {
-      onSettled?.();
-    },
-  }));
+  const mutation = useMutation(
+    trpc.file.create.mutationOptions({
+      onSuccess: async () => {
+        onSuccess?.();
+        form.reset();
+        toast.success("File created successfully");
+      },
+      onError: (error) => {
+        onError?.(error);
+        toast.error("File creation failed");
+      },
+      onMutate: async () => {
+        onMutate?.();
+        return undefined;
+      },
+      onSettled: async () => {
+        onSettled?.();
+      },
+    }),
+  );
 
   const form = useForm({
     defaultValues: {

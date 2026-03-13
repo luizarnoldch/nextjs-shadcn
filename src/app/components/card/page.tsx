@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-  CardAction
+  CardAction,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,9 @@ export default function CardPage() {
   const [showContent, setShowContent] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
   const [showAction, setShowAction] = useState(false);
-  const [cardTheme, setCardTheme] = useState<"login" | "pricing" | "empty">("login");
+  const [cardTheme, setCardTheme] = useState<"login" | "pricing" | "empty">(
+    "login",
+  );
 
   const hlTag = "text-emerald-400";
   const hlProp = "text-purple-400";
@@ -39,10 +41,14 @@ export default function CardPage() {
         parts.push(`    <CardHeader>\n${headerContent}\n    </CardHeader>`);
       }
       if (showContent) {
-        parts.push(`    <CardContent className="space-y-4">\n      <div className="space-y-2">\n        <Label htmlFor="email">Email</Label>\n        <Input id="email" type="email" placeholder="m@example.com" />\n      </div>\n      <div className="space-y-2">\n        <Label htmlFor="password">Password</Label>\n        <Input id="password" type="password" />\n      </div>\n    </CardContent>`);
+        parts.push(
+          `    <CardContent className="space-y-4">\n      <div className="space-y-2">\n        <Label htmlFor="email">Email</Label>\n        <Input id="email" type="email" placeholder="m@example.com" />\n      </div>\n      <div className="space-y-2">\n        <Label htmlFor="password">Password</Label>\n        <Input id="password" type="password" />\n      </div>\n    </CardContent>`,
+        );
       }
       if (showFooter) {
-        parts.push(`    <CardFooter>\n      <Button className="w-full">Sign In</Button>\n    </CardFooter>`);
+        parts.push(
+          `    <CardFooter>\n      <Button className="w-full">Sign In</Button>\n    </CardFooter>`,
+        );
       }
     } else if (cardTheme === "pricing") {
       if (showHeader) {
@@ -53,10 +59,14 @@ export default function CardPage() {
         parts.push(`    <CardHeader>\n${headerContent}\n    </CardHeader>`);
       }
       if (showContent) {
-        parts.push(`    <CardContent>\n      <ul className="space-y-2 text-sm text-muted-foreground flex flex-col gap-1">\n        <li className="flex items-center gap-2">\n          <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>\n          Up to 10 users\n        </li>\n        <li className="flex items-center gap-2">\n          <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>\n          20GB Storage\n        </li>\n        <li className="flex items-center gap-2">\n          <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>\n          Priority Support\n        </li>\n      </ul>\n    </CardContent>`);
+        parts.push(
+          `    <CardContent>\n      <ul className="space-y-2 text-sm text-muted-foreground flex flex-col gap-1">\n        <li className="flex items-center gap-2">\n          <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>\n          Up to 10 users\n        </li>\n        <li className="flex items-center gap-2">\n          <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>\n          20GB Storage\n        </li>\n        <li className="flex items-center gap-2">\n          <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>\n          Priority Support\n        </li>\n      </ul>\n    </CardContent>`,
+        );
       }
       if (showFooter) {
-        parts.push(`    <CardFooter>\n      <Button className="w-full">Upgrade to Pro</Button>\n    </CardFooter>`);
+        parts.push(
+          `    <CardFooter>\n      <Button className="w-full">Upgrade to Pro</Button>\n    </CardFooter>`,
+        );
       }
     } else {
       if (showHeader) {
@@ -67,10 +77,14 @@ export default function CardPage() {
         parts.push(`    <CardHeader>\n${headerContent}\n    </CardHeader>`);
       }
       if (showContent) {
-        parts.push(`    <CardContent>\n      <p className="text-sm text-muted-foreground">Card content goes here. Build your own layout.</p>\n    </CardContent>`);
+        parts.push(
+          `    <CardContent>\n      <p className="text-sm text-muted-foreground">Card content goes here. Build your own layout.</p>\n    </CardContent>`,
+        );
       }
       if (showFooter) {
-        parts.push(`    <CardFooter>\n      <Button variant="outline" className="w-full">Footer Action</Button>\n    </CardFooter>`);
+        parts.push(
+          `    <CardFooter>\n      <Button variant="outline" className="w-full">Footer Action</Button>\n    </CardFooter>`,
+        );
       }
     }
 
@@ -81,14 +95,14 @@ export default function CardPage() {
       ...(showHeader ? ["CardHeader", "CardTitle", "CardDescription"] : []),
       ...(showContent ? ["CardContent"] : []),
       ...(showFooter ? ["CardFooter"] : []),
-      ...(showAction && showHeader ? ["CardAction"] : [])
+      ...(showAction && showHeader ? ["CardAction"] : []),
     ];
 
     return `import { 
   ${importCardSubcomponents.join(",\n  ")}
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-${cardTheme === "login" && showContent ? 'import { Input } from "@/components/ui/input"\nimport { Label } from "@/components/ui/label"\n' : ''}
+${cardTheme === "login" && showContent ? 'import { Input } from "@/components/ui/input"\nimport { Label } from "@/components/ui/label"\n' : ""}
 export default function CardDemo() {
   return (
     <Card className="w-[350px]">${innerJSX}</Card>
@@ -97,26 +111,62 @@ export default function CardDemo() {
   };
 
   // prettier-ignore
-  const rawCodeContent = generateCode()
+  const rawCodeContent = generateCode();
 
   // prettier-ignore
   const highlightedCode = generateCode()
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
-    .replace(/&lt;(\/?)Card([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Card$2</span>$3&gt;`)
-    .replace(/&lt;(\/?)Button(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Button</span>$2&gt;`)
-    .replace(/&lt;(\/?)Label(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Label</span>$2&gt;`)
-    .replace(/&lt;(\/?)Input(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Input</span>$2&gt;`)
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ variant="([^"]+)"/g, ` <span class="${hlProp}">variant</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ size="([^"]+)"/g, ` <span class="${hlProp}">size</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ type="([^"]+)"/g, ` <span class="${hlProp}">type</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ id="([^"]+)"/g, ` <span class="${hlProp}">id</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ htmlFor="([^"]+)"/g, ` <span class="${hlProp}">htmlFor</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ placeholder="([^"]+)"/g, ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`);
+    .replace(
+      /&lt;(\/?)Card([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Card$2</span>$3&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Button(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Button</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Label(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Label</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Input(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Input</span>$2&gt;`,
+    )
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / variant="([^"]+)"/g,
+      ` <span class="${hlProp}">variant</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / size="([^"]+)"/g,
+      ` <span class="${hlProp}">size</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / type="([^"]+)"/g,
+      ` <span class="${hlProp}">type</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / id="([^"]+)"/g,
+      ` <span class="${hlProp}">id</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / htmlFor="([^"]+)"/g,
+      ` <span class="${hlProp}">htmlFor</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / placeholder="([^"]+)"/g,
+      ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`,
+    );
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -130,10 +180,14 @@ export default function CardDemo() {
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full lg:w-[400px] p-6 border rounded-lg bg-card shadow-sm">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Component Theme</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Component Theme
+            </h3>
             <div className="flex gap-2 flex-wrap">
               {(["login", "pricing", "empty"] as const).map((t) => (
                 <Button
@@ -151,12 +205,16 @@ export default function CardDemo() {
           <div className="border-t border-border/50" />
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Visible Layers</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Visible Layers
+            </h3>
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Header</span>
-                <span className="text-xs text-muted-foreground">Visually sets the card title and description</span>
+                <span className="text-xs text-muted-foreground">
+                  Visually sets the card title and description
+                </span>
               </div>
               <Button
                 variant={showHeader ? "default" : "secondary"}
@@ -170,7 +228,9 @@ export default function CardDemo() {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Action</span>
-                <span className="text-xs text-muted-foreground">Placed inside the CardHeader space</span>
+                <span className="text-xs text-muted-foreground">
+                  Placed inside the CardHeader space
+                </span>
               </div>
               <Button
                 variant={showAction ? "default" : "secondary"}
@@ -185,7 +245,9 @@ export default function CardDemo() {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Content</span>
-                <span className="text-xs text-muted-foreground">The primary interior padding wrapper</span>
+                <span className="text-xs text-muted-foreground">
+                  The primary interior padding wrapper
+                </span>
               </div>
               <Button
                 variant={showContent ? "default" : "secondary"}
@@ -199,7 +261,9 @@ export default function CardDemo() {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Footer</span>
-                <span className="text-xs text-muted-foreground">Bottom bordered wrapper</span>
+                <span className="text-xs text-muted-foreground">
+                  Bottom bordered wrapper
+                </span>
               </div>
               <Button
                 variant={showFooter ? "default" : "secondary"}
@@ -209,7 +273,6 @@ export default function CardDemo() {
                 {showFooter ? "On" : "Off"}
               </Button>
             </div>
-
           </div>
         </div>
 
@@ -221,18 +284,37 @@ export default function CardDemo() {
             <Card className="w-full bg-card shadow-lg transition-all">
               {showHeader && (
                 <CardHeader>
-                  <CardTitle>{cardTheme === 'pricing' ? 'Pro Plan' : cardTheme === 'login' ? 'Login' : 'Blank Card'}</CardTitle>
+                  <CardTitle>
+                    {cardTheme === "pricing"
+                      ? "Pro Plan"
+                      : cardTheme === "login"
+                        ? "Login"
+                        : "Blank Card"}
+                  </CardTitle>
                   <CardDescription>
-                    {cardTheme === 'pricing' ? 'Perfect for growing businesses.' : cardTheme === 'login' ? 'Enter your email below to login.' : 'A completely empty starting point.'}
+                    {cardTheme === "pricing"
+                      ? "Perfect for growing businesses."
+                      : cardTheme === "login"
+                        ? "Enter your email below to login."
+                        : "A completely empty starting point."}
                   </CardDescription>
                   {showAction && (
                     <CardAction>
-                      {cardTheme === 'pricing' ? (
-                        <div className="text-3xl font-bold">$19<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
-                      ) : cardTheme === 'login' ? (
-                        <Button variant="outline" size="sm">Help</Button>
+                      {cardTheme === "pricing" ? (
+                        <div className="text-3xl font-bold">
+                          $19
+                          <span className="text-sm font-normal text-muted-foreground">
+                            /mo
+                          </span>
+                        </div>
+                      ) : cardTheme === "login" ? (
+                        <Button variant="outline" size="sm">
+                          Help
+                        </Button>
                       ) : (
-                        <Button variant="ghost" size="sm">Action</Button>
+                        <Button variant="ghost" size="sm">
+                          Action
+                        </Button>
                       )}
                     </CardAction>
                   )}
@@ -240,12 +322,18 @@ export default function CardDemo() {
               )}
 
               {showContent && (
-                <CardContent className={cardTheme === 'login' ? 'space-y-4' : ''}>
-                  {cardTheme === 'login' && (
+                <CardContent
+                  className={cardTheme === "login" ? "space-y-4" : ""}
+                >
+                  {cardTheme === "login" && (
                     <>
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="m@example.com" />
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="m@example.com"
+                        />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="password">Password</Label>
@@ -253,38 +341,78 @@ export default function CardDemo() {
                       </div>
                     </>
                   )}
-                  {cardTheme === 'pricing' && (
+                  {cardTheme === "pricing" && (
                     <ul className="space-y-2 text-sm text-muted-foreground flex flex-col gap-1">
                       <li className="flex items-center gap-2">
-                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                        <svg
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4 text-primary"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
                         Up to 10 users
                       </li>
                       <li className="flex items-center gap-2">
-                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                        <svg
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4 text-primary"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
                         20GB Storage
                       </li>
                       <li className="flex items-center gap-2">
-                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                        <svg
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4 text-primary"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
                         Priority Support
                       </li>
                     </ul>
                   )}
-                  {cardTheme === 'empty' && (
-                    <p className="text-sm text-muted-foreground">Card content goes here. Build your own layout.</p>
+                  {cardTheme === "empty" && (
+                    <p className="text-sm text-muted-foreground">
+                      Card content goes here. Build your own layout.
+                    </p>
                   )}
                 </CardContent>
               )}
 
               {showFooter && (
                 <CardFooter>
-                  {cardTheme === 'login' && (
+                  {cardTheme === "login" && (
                     <Button className="w-full">Sign In</Button>
                   )}
-                  {cardTheme === 'pricing' && (
+                  {cardTheme === "pricing" && (
                     <Button className="w-full">Upgrade to Pro</Button>
                   )}
-                  {cardTheme === 'empty' && (
-                    <Button variant="outline" className="w-full">Footer Action</Button>
+                  {cardTheme === "empty" && (
+                    <Button variant="outline" className="w-full">
+                      Footer Action
+                    </Button>
                   )}
                 </CardFooter>
               )}
@@ -295,7 +423,9 @@ export default function CardDemo() {
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

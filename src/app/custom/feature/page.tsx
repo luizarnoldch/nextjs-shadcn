@@ -1,8 +1,8 @@
-import React from 'react'
-import DefaultFeature from './_components/DefaultFeature'
-import HorizontalFeature from './_components/HorizontalFeature'
+import React from "react";
+import DefaultFeature from "./_components/DefaultFeature";
+import HorizontalFeature from "./_components/HorizontalFeature";
 
-type Props = {}
+type Props = {};
 
 const Feature = (props: Props) => {
   return (
@@ -10,7 +10,7 @@ const Feature = (props: Props) => {
       <DefaultFeature />
       <HorizontalFeature />
     </div>
-  )
-}
+  );
+};
 
-export default Feature
+export default Feature;

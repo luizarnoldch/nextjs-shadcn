@@ -1,14 +1,14 @@
 import Sidebar from "@/components/custom/navigation/sidebar/Sidebar";
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <div className="flex">
-            <Sidebar />
-            {children}
-        </div>
-    );
+  return (
+    <div className="flex">
+      <Sidebar />
+      {children}
+    </div>
+  );
 }

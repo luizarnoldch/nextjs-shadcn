@@ -1,27 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
-import { useListFiles } from '../../hooks/useListFiles';
-import { useMergedQueue, FileItem } from '../../stores/file.store';
 import { FileDropZoneQueueItem } from "./FileDropZoneQueueItem";
+import { useFileDropZone } from "../../hooks/useFileDropZone";
 
 const FileDropZoneQueue = () => {
-  const { data: files } = useListFiles();
-
-  const remoteFiles = useMemo<FileItem[]>(
-    () =>
-      files?.map((file) => ({
-        ...file,
-        origin: "remote" as const,
-        url: file.url || "",
-      })) ?? [],
-    [files]
-  );
-
-  const queue = useMergedQueue(remoteFiles);
-
+  const { queue } = useFileDropZone();
   if (queue.length === 0) return null;
-
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium">Queued Files ({queue.length})</h3>

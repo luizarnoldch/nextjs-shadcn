@@ -26,7 +26,9 @@ const t = initTRPC
 export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;
 export const baseProcedure = t.procedure.use(async ({ ctx, next }) => {
-  return next({ ctx: { ...ctx, prisma: prisma, s3Client: s3Client, config: config } });
+  return next({
+    ctx: { ...ctx, prisma: prisma, s3Client: s3Client, config: config },
+  });
 });
 
 // export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {

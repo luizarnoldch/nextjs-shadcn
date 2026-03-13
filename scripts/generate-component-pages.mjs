@@ -1,62 +1,62 @@
-import fs from "fs/promises"
-import path from "path"
+import fs from "fs/promises";
+import path from "path";
 
 // Relative paths from the script execution context (project root)
-const UI_COMPONENTS_DIR = path.join(process.cwd(), "src/components/ui")
-const OUTPUT_LIST_FILE = path.join(process.cwd(), "src/lib/components-list.ts")
-const APP_COMPONENTS_DIR = path.join(process.cwd(), "src/app/components")
+const UI_COMPONENTS_DIR = path.join(process.cwd(), "src/components/ui");
+const OUTPUT_LIST_FILE = path.join(process.cwd(), "src/lib/components-list.ts");
+const APP_COMPONENTS_DIR = path.join(process.cwd(), "src/app/components");
 
 async function main() {
   try {
     // 1. Read the src/components/ui directory
-    const files = await fs.readdir(UI_COMPONENTS_DIR)
+    const files = await fs.readdir(UI_COMPONENTS_DIR);
 
     // Filter for .tsx files and extract component names
     const components = files
       .filter((file) => file.endsWith(".tsx"))
       .map((file) => {
-        const name = file.replace(".tsx", "")
+        const name = file.replace(".tsx", "");
         // Format names like 'alert-dialog' to 'Alert Dialog'
         const formattedName = name
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ")
+          .join(" ");
 
         return {
           id: name,
           name: formattedName,
           path: `/components/${name}`,
-        }
+        };
       })
-      .sort((a, b) => a.id.localeCompare(b.id))
+      .sort((a, b) => a.id.localeCompare(b.id));
 
-    console.log(`Found ${components.length} UI components.`)
+    console.log(`Found ${components.length} UI components.`);
 
     // 2. Generate src/lib/components-list.ts
     // Ensure lib directory exists
-    await fs.mkdir(path.dirname(OUTPUT_LIST_FILE), { recursive: true })
+    await fs.mkdir(path.dirname(OUTPUT_LIST_FILE), { recursive: true });
 
     const listContent = `// Auto-generated file. Do not edit manually.
 export const uiComponents = ${JSON.stringify(components, null, 2)} as const;
 
 export type UIComponent = typeof uiComponents[number];
-`
-    await fs.writeFile(OUTPUT_LIST_FILE, listContent, "utf-8")
-    console.log(`Generated ${OUTPUT_LIST_FILE}`)
+`;
+    await fs.writeFile(OUTPUT_LIST_FILE, listContent, "utf-8");
+    console.log(`Generated ${OUTPUT_LIST_FILE}`);
 
     // 3. Create component pages
-    let newPagesCount = 0
+    let newPagesCount = 0;
 
     for (const component of components) {
-      const componentDir = path.join(APP_COMPONENTS_DIR, component.id)
-      const pageFile = path.join(componentDir, "page.tsx")
+      const componentDir = path.join(APP_COMPONENTS_DIR, component.id);
+      const pageFile = path.join(componentDir, "page.tsx");
 
       // Ensure the directory exists
-      await fs.mkdir(componentDir, { recursive: true })
+      await fs.mkdir(componentDir, { recursive: true });
 
       // Check if page already exists to prevent overwriting custom work
       try {
-        await fs.access(pageFile)
+        await fs.access(pageFile);
       } catch (error) {
         // File doesn't exist, generate standard template
         const pageContent = `export default function ${component.name.replace(/ /g, "")}Page() {
@@ -76,18 +76,18 @@ export type UIComponent = typeof uiComponents[number];
     </div>
   );
 }
-`
-        await fs.writeFile(pageFile, pageContent, "utf-8")
-        newPagesCount++
+`;
+        await fs.writeFile(pageFile, pageContent, "utf-8");
+        newPagesCount++;
       }
     }
 
-    console.log(`Generated ${newPagesCount} new component pages.`)
-    console.log("Done!")
+    console.log(`Generated ${newPagesCount} new component pages.`);
+    console.log("Done!");
   } catch (error) {
-    console.error("Error generating component pages:", error)
-    process.exit(1)
+    console.error("Error generating component pages:", error);
+    process.exit(1);
   }
 }
 
-main()
+main();

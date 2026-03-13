@@ -1,7 +1,12 @@
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
-import NavLinks from '../NavLInks';
-import { MenuIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import NavLinks from "../NavLInks";
+import { MenuIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const MenuSheet = () => {
   return (

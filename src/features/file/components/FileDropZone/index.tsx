@@ -1,8 +1,8 @@
 "use client";
 
-import FileDropZoneArea from './FileDropZoneArea';
-import FileDropZoneQueue from './FileDropZoneQueue';
-import FileDropZoneSaveButton from './FileDropZoneSaveButton';
+import FileDropZoneArea from "./FileDropZoneArea";
+import FileDropZoneQueue from "./FileDropZoneQueue";
+import FileDropZoneSaveButton from "./FileDropZoneSaveButton";
 
 const FileDropZone = () => {
   return (

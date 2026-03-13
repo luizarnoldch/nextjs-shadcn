@@ -6,14 +6,18 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
-  CarouselNext
+  CarouselNext,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 
 export default function CarouselDemoPage() {
-  const [orientation, setOrientation] = useState<"horizontal" | "vertical">("horizontal");
+  const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
+    "horizontal",
+  );
   const [loop, setLoop] = useState<boolean>(false);
-  const [slideSize, setSlideSize] = useState<"basis-full" | "basis-1/2" | "basis-1/3">("basis-1/2");
+  const [slideSize, setSlideSize] = useState<
+    "basis-full" | "basis-1/2" | "basis-1/3"
+  >("basis-1/2");
   const [showArrows, setShowArrows] = useState<boolean>(true);
 
   // Syntax highlighting colors
@@ -38,10 +42,13 @@ export default function CarouselDemoPage() {
       carouselProps.push(`opts={{ loop: true }}`);
     }
 
-    const propsStr = carouselProps.length > 0 ? ` ${carouselProps.join(" ")}` : "";
+    const propsStr =
+      carouselProps.length > 0 ? ` ${carouselProps.join(" ")}` : "";
 
     parts.push(`    <Carousel${propsStr}>`);
-    parts.push(`      <CarouselContent${orientation === "vertical" ? ' className="-mt-1 h-[200px]"' : ''}>`);
+    parts.push(
+      `      <CarouselContent${orientation === "vertical" ? ' className="-mt-1 h-[200px]"' : ""}>`,
+    );
 
     // Simulate mapping 5 items
     parts.push(`        {Array.from({ length: 5 }).map((_, index) => (`);
@@ -49,18 +56,27 @@ export default function CarouselDemoPage() {
     // Item configuration
     const itemClasses: string[] = [];
     if (slideSize !== "basis-full") {
-      itemClasses.push(slideSize === "basis-1/2" ? `md:basis-1/2` : `md:basis-1/2 lg:basis-1/3`);
+      itemClasses.push(
+        slideSize === "basis-1/2"
+          ? `md:basis-1/2`
+          : `md:basis-1/2 lg:basis-1/3`,
+      );
     }
     if (orientation === "vertical") {
       itemClasses.push("pt-1 h-full"); // spacing adjustments for vertical
     }
 
-    const itemPropsStr = itemClasses.length > 0 ? ` className="${itemClasses.join(" ")}"` : "";
+    const itemPropsStr =
+      itemClasses.length > 0 ? ` className="${itemClasses.join(" ")}"` : "";
 
     parts.push(`          <CarouselItem key={index}${itemPropsStr}>`);
     parts.push(`            <div className="p-1">`);
-    parts.push(`              <div className="flex aspect-square items-center justify-center rounded-xl border bg-card p-6 shadow-sm">`);
-    parts.push(`                <span className="text-3xl font-semibold">{index + 1}</span>`);
+    parts.push(
+      `              <div className="flex aspect-square items-center justify-center rounded-xl border bg-card p-6 shadow-sm">`,
+    );
+    parts.push(
+      `                <span className="text-3xl font-semibold">{index + 1}</span>`,
+    );
     parts.push(`              </div>`);
     parts.push(`            </div>`);
     parts.push(`          </CarouselItem>`);
@@ -81,7 +97,7 @@ export default function CarouselDemoPage() {
       "Carousel",
       "CarouselContent",
       "CarouselItem",
-      ...(showArrows ? ["CarouselPrevious", "CarouselNext"] : [])
+      ...(showArrows ? ["CarouselPrevious", "CarouselNext"] : []),
     ];
 
     return `import { 
@@ -96,20 +112,38 @@ ${innerJSX}
   };
 
   // prettier-ignore
-  const rawCodeContent = generateCode()
+  const rawCodeContent = generateCode();
 
   // prettier-ignore
   const highlightedCode = generateCode()
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
-    .replace(/&lt;(\/?)Carousel([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Carousel$2</span>$3&gt;`)
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ orientation="([^"]+)"/g, ` <span class="${hlProp}">orientation</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ key=\{([^}]+)\}/g, ` <span class="${hlProp}">key</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ opts=\{([^}]+)\}/g, ` <span class="${hlProp}">opts</span>={<span class="${hlVal}">$1</span>}`);
+    .replace(
+      /&lt;(\/?)Carousel([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Carousel$2</span>$3&gt;`,
+    )
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / orientation="([^"]+)"/g,
+      ` <span class="${hlProp}">orientation</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / key=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">key</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / opts=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">opts</span>={<span class="${hlVal}">$1</span>}`,
+    );
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -123,11 +157,18 @@ ${innerJSX}
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full xl:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Slide Sizing (Basis)</h3>
-            <p className="text-xs text-muted-foreground">Determines how many slides fit in the viewport at once using flex-basis.</p>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Slide Sizing (Basis)
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Determines how many slides fit in the viewport at once using
+              flex-basis.
+            </p>
             <div className="flex gap-2 flex-wrap">
               {[
                 { label: "1 Slide", value: "basis-full" },
@@ -149,16 +190,22 @@ ${innerJSX}
           <div className="border-t border-border/50" />
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Properties</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Properties
+            </h3>
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Orientation</span>
-                <span className="text-xs text-muted-foreground">Horizontal or vertical layout</span>
+                <span className="text-xs text-muted-foreground">
+                  Horizontal or vertical layout
+                </span>
               </div>
               <div className="flex gap-2">
                 <Button
-                  variant={orientation === "horizontal" ? "default" : "secondary"}
+                  variant={
+                    orientation === "horizontal" ? "default" : "secondary"
+                  }
                   onClick={() => setOrientation("horizontal")}
                   size="sm"
                 >
@@ -177,7 +224,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Looping</span>
-                <span className="text-xs text-muted-foreground">Infinite scroll wrapping (opts.loop)</span>
+                <span className="text-xs text-muted-foreground">
+                  Infinite scroll wrapping (opts.loop)
+                </span>
               </div>
               <Button
                 variant={loop ? "default" : "secondary"}
@@ -191,7 +240,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Arrows</span>
-                <span className="text-xs text-muted-foreground">Show previous/next controls</span>
+                <span className="text-xs text-muted-foreground">
+                  Show previous/next controls
+                </span>
               </div>
               <Button
                 variant={showArrows ? "default" : "secondary"}
@@ -214,27 +265,46 @@ ${innerJSX}
               to prevent internal Embla state issues, but the user code snippet handles
               it seamlessly. 
             */}
-            <div key={orientation + loop.toString()} className="relative flex w-full flex-col items-center justify-center py-10 px-12">
+            <div
+              key={orientation + loop.toString()}
+              className="relative flex w-full flex-col items-center justify-center py-10 px-12"
+            >
               <Carousel
                 orientation={orientation}
                 opts={{ loop }}
-                className={orientation === "vertical" ? "w-full max-w-xs" : "w-full max-w-sm"}
+                className={
+                  orientation === "vertical"
+                    ? "w-full max-w-xs"
+                    : "w-full max-w-sm"
+                }
               >
-                <CarouselContent className={orientation === "vertical" ? "-mt-1 h-[400px]" : ""}>
+                <CarouselContent
+                  className={
+                    orientation === "vertical" ? "-mt-1 h-[400px]" : ""
+                  }
+                >
                   {Array.from({ length: 5 }).map((_, index) => (
                     <CarouselItem
                       key={index}
                       className={
                         slideSize === "basis-full"
-                          ? orientation === "vertical" ? "pt-1 block" : ""
+                          ? orientation === "vertical"
+                            ? "pt-1 block"
+                            : ""
                           : slideSize === "basis-1/2"
-                            ? orientation === "vertical" ? "pt-1 basis-1/2" : "md:basis-1/2"
-                            : orientation === "vertical" ? "pt-1 basis-1/3" : "md:basis-1/2 lg:basis-1/3"
+                            ? orientation === "vertical"
+                              ? "pt-1 basis-1/2"
+                              : "md:basis-1/2"
+                            : orientation === "vertical"
+                              ? "pt-1 basis-1/3"
+                              : "md:basis-1/2 lg:basis-1/3"
                       }
                     >
                       <div className="p-1 h-full">
                         <div className="flex h-full aspect-square md:aspect-auto md:min-h-[200px] items-center justify-center rounded-xl border bg-card p-6 shadow-sm transition-transform hover:scale-[1.02]">
-                          <span className="text-4xl font-semibold">{index + 1}</span>
+                          <span className="text-4xl font-semibold">
+                            {index + 1}
+                          </span>
                         </div>
                       </div>
                     </CarouselItem>
@@ -254,7 +324,9 @@ ${innerJSX}
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

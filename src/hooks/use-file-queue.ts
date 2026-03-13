@@ -31,28 +31,32 @@ export function useFileQueue(props?: UseFileQueueProps) {
   const setRemoteFiles = useCallback((files: Omit<RemoteFile, "type">[]) => {
     setQueue((prev) => {
       const localFiles = prev.filter((f) => f.type === "local");
-      const newRemoteFiles = files.map((f) => ({ ...f, type: "remote" as const }));
+      const newRemoteFiles = files.map((f) => ({
+        ...f,
+        type: "remote" as const,
+      }));
       return [...newRemoteFiles, ...localFiles];
     });
   }, []);
 
+  const addLocalFile = useCallback(
+    (file: File, id: string, presignedUrl: string) => {
+      const newLocalFile: LocalFile = {
+        type: "local",
+        id,
+        file,
+        previewUrl: URL.createObjectURL(file), // create local preview
+        presignedUrl,
+      };
 
-  
-  const addLocalFile = useCallback((file: File, id: string, presignedUrl: string) => {
-    const newLocalFile: LocalFile = {
-      type: "local",
-      id,
-      file,
-      previewUrl: URL.createObjectURL(file), // create local preview
-      presignedUrl,
-    };
-
-    setQueue((prev) => [...prev, newLocalFile]);
-  }, []);
+      setQueue((prev) => [...prev, newLocalFile]);
+    },
+    [],
+  );
 
   const uploadFiles = useCallback(async () => {
     const localFiles = queue.filter((f): f is LocalFile => f.type === "local");
-    
+
     const uploadPromises = localFiles.map(async (localFile) => {
       try {
         const response = await fetch(localFile.presignedUrl, {
@@ -62,11 +66,11 @@ export function useFileQueue(props?: UseFileQueueProps) {
             "Content-Type": localFile.file.type || "application/octet-stream",
           },
         });
-        
+
         if (!response.ok) {
-           throw new Error(`Failed to upload file: ${localFile.file.name}`);
+          throw new Error(`Failed to upload file: ${localFile.file.name}`);
         }
-        
+
         return { success: true, id: localFile.id };
       } catch (error) {
         console.error("Upload error", error);
@@ -101,7 +105,7 @@ export function useFileQueue(props?: UseFileQueueProps) {
       }
       setQueue((prev) => prev.filter((f) => f.id !== id));
     },
-    [queue, props?.onDeleteFile]
+    [queue, props?.onDeleteFile],
   );
 
   const clearQueue = useCallback(() => {

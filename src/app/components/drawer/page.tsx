@@ -15,7 +15,9 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 
 export default function DrawerDemoPage() {
-  const [direction, setDirection] = useState<"top" | "bottom" | "left" | "right">("bottom");
+  const [direction, setDirection] = useState<
+    "top" | "bottom" | "left" | "right"
+  >("bottom");
   const [dismissible, setDismissible] = useState(true);
 
   // Example interactive state for the payload content
@@ -45,17 +47,24 @@ export default function DrawerDemoPage() {
     parts.push(`      <DrawerContent>`);
 
     // Add layout adjustments depending on direction for better presentation
-    const alignClass = direction === "left" || direction === "right"
-      ? `h-full flex flex-col p-4 w-[300px]`
-      : `mx-auto w-full max-w-sm`;
+    const alignClass =
+      direction === "left" || direction === "right"
+        ? `h-full flex flex-col p-4 w-[300px]`
+        : `mx-auto w-full max-w-sm`;
 
     parts.push(`        <div className="${alignClass}">`);
     parts.push(`          <DrawerHeader>`);
     parts.push(`            <DrawerTitle>Move Goal</DrawerTitle>`);
-    parts.push(`            <DrawerDescription>Set your daily activity goal.</DrawerDescription>`);
+    parts.push(
+      `            <DrawerDescription>Set your daily activity goal.</DrawerDescription>`,
+    );
     parts.push(`          </DrawerHeader>`);
-    parts.push(`          <div className="p-4 pb-0 flex-1 flex flex-col justify-center">`);
-    parts.push(`            <div className="flex items-center justify-center space-x-2">`);
+    parts.push(
+      `          <div className="p-4 pb-0 flex-1 flex flex-col justify-center">`,
+    );
+    parts.push(
+      `            <div className="flex items-center justify-center space-x-2">`,
+    );
     parts.push(`              <Button`);
     parts.push(`                variant="outline"`);
     parts.push(`                size="icon"`);
@@ -67,10 +76,14 @@ export default function DrawerDemoPage() {
     parts.push(`                <span className="sr-only">Decrease</span>`);
     parts.push(`              </Button>`);
     parts.push(`              <div className="flex-1 text-center">`);
-    parts.push(`                <div className="text-7xl font-bold tracking-tighter">`);
+    parts.push(
+      `                <div className="text-7xl font-bold tracking-tighter">`,
+    );
     parts.push(`                  {goal}`);
     parts.push(`                </div>`);
-    parts.push(`                <div className="text-[0.70rem] uppercase text-muted-foreground">`);
+    parts.push(
+      `                <div className="text-[0.70rem] uppercase text-muted-foreground">`,
+    );
     parts.push(`                  Calories/day`);
     parts.push(`                </div>`);
     parts.push(`              </div>`);
@@ -132,32 +145,75 @@ ${innerJSX}
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/function/g, `<span class="${hlKw}">function</span>`)
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
     .replace(/const/g, `<span class="${hlKw}">const</span>`)
     // Tags
-    .replace(/&lt;(\/?)Drawer([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Drawer$2</span>$3&gt;`)
-    .replace(/&lt;(\/?)Button(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Button</span>$2&gt;`)
-    .replace(/&lt;(\/?)Minus(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Minus</span>$2&gt;`)
-    .replace(/&lt;(\/?)Plus(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Plus</span>$2&gt;`)
-    .replace(/&lt;(\/?)div(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">div</span>$2&gt;`)
-    .replace(/&lt;(\/?)span(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">span</span>$2&gt;`)
+    .replace(
+      /&lt;(\/?)Drawer([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Drawer$2</span>$3&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Button(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Button</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Minus(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Minus</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Plus(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Plus</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)div(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">div</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)span(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">span</span>$2&gt;`,
+    )
     // Attributes
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ variant="([^"]+)"/g, ` <span class="${hlProp}">variant</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ size="([^"]+)"/g, ` <span class="${hlProp}">size</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ direction="([^"]+)"/g, ` <span class="${hlProp}">direction</span>="<span class="${hlVal}">$1</span>"`)
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / variant="([^"]+)"/g,
+      ` <span class="${hlProp}">variant</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / size="([^"]+)"/g,
+      ` <span class="${hlProp}">size</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / direction="([^"]+)"/g,
+      ` <span class="${hlProp}">direction</span>="<span class="${hlVal}">$1</span>"`,
+    )
     .replace(/ asChild/g, ` <span class="${hlProp}">asChild</span>`)
     // React Hook and expressions
     .replace(/React\.useState/g, `<span class="${hlVal}">React.useState</span>`)
-    .replace(/ onClick=\{([^}]+)\}/g, ` <span class="${hlProp}">onClick</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ disabled=\{([^}]+)\}/g, ` <span class="${hlProp}">disabled</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ dismissible=\{([^}]+)\}/g, ` <span class="${hlProp}">dismissible</span>={<span class="${hlVal}">$1</span>}`);
+    .replace(
+      / onClick=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">onClick</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / disabled=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">disabled</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / dismissible=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">dismissible</span>={<span class="${hlVal}">$1</span>}`,
+    );
 
-  const alignClass = direction === "left" || direction === "right"
-    ? `h-full flex flex-col p-4 w-[300px]`
-    : `mx-auto w-full max-w-sm`;
+  const alignClass =
+    direction === "left" || direction === "right"
+      ? `h-full flex flex-col p-4 w-[300px]`
+      : `mx-auto w-full max-w-sm`;
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -171,10 +227,14 @@ ${innerJSX}
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full lg:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Flow Direction</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Flow Direction
+            </h3>
 
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Anchor Point</span>
@@ -215,7 +275,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Dismissible</span>
-                <span className="text-xs text-muted-foreground">Allow swipe/backdrop close</span>
+                <span className="text-xs text-muted-foreground">
+                  Allow swipe/backdrop close
+                </span>
               </div>
               <Button
                 variant={dismissible ? "default" : "secondary"}
@@ -225,7 +287,6 @@ ${innerJSX}
                 {dismissible ? "Enabled" : "Disabled"}
               </Button>
             </div>
-
           </div>
         </div>
 
@@ -234,7 +295,6 @@ ${innerJSX}
           <div className="absolute inset-0 bg-grid-zinc-200/50 dark:bg-grid-zinc-800/50 bg-size-[20px_20px]" />
 
           <div className="relative z-10 p-12 bg-card border rounded-xl shadow-sm min-w-[350px] flex justify-center">
-
             <Drawer direction={direction} dismissible={dismissible}>
               <DrawerTrigger asChild>
                 <Button variant="outline">Open Drawer</Button>
@@ -243,7 +303,9 @@ ${innerJSX}
                 <div className={alignClass}>
                   <DrawerHeader>
                     <DrawerTitle>Move Goal</DrawerTitle>
-                    <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+                    <DrawerDescription>
+                      Set your daily activity goal.
+                    </DrawerDescription>
                   </DrawerHeader>
                   <div className="p-4 pb-0 flex-1 flex flex-col justify-center">
                     <div className="flex items-center justify-center space-x-2">
@@ -286,14 +348,15 @@ ${innerJSX}
                 </div>
               </DrawerContent>
             </Drawer>
-
           </div>
         </div>
       </div>
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

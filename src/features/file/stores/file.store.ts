@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { FileState, FileVisibility } from '@/generated/prisma/enums';
+import { create } from "zustand";
+import { FileState, FileVisibility } from "@/generated/prisma/enums";
 
 export interface FileItem {
   id: string;
@@ -8,7 +8,7 @@ export interface FileItem {
   size: number;
   url?: string;
   presignURL?: string;
-  origin: 'local' | 'remote';
+  origin: "local" | "remote";
   file?: File;
   key?: string | null;
   state?: FileState;
@@ -23,22 +23,25 @@ interface FileStore {
 
 export const useFileStore = create<FileStore>((set) => ({
   localQueue: [],
-  addFiles: (newFiles) => set((state) => {
-    const filtered = newFiles.filter(
-      (f) => !state.localQueue.some((q) => q.id === f.id)
-    );
-    if (filtered.length === 0) return state;
-    return { localQueue: [...state.localQueue, ...filtered] };
-  }),
-  removeFile: (id) => set((state) => ({
-    localQueue: state.localQueue.filter((f) => f.id !== id),
-  })),
+  addFiles: (newFiles) =>
+    set((state) => {
+      const filtered = newFiles.filter(
+        (f) => !state.localQueue.some((q) => q.id === f.id),
+      );
+      if (filtered.length === 0) return state;
+      return { localQueue: [...state.localQueue, ...filtered] };
+    }),
+  removeFile: (id) =>
+    set((state) => ({
+      localQueue: state.localQueue.filter((f) => f.id !== id),
+    })),
 }));
 
 // Selectors for local queue only
 export const useStoreLocalQueue = () => useFileStore((s) => s.localQueue);
 export const useStoreAddFilesToQueue = () => useFileStore((s) => s.addFiles);
-export const useStoreRemoveFileFromQueue = () => useFileStore((s) => s.removeFile);
+export const useStoreRemoveFileFromQueue = () =>
+  useFileStore((s) => s.removeFile);
 
 // Merged queue: remote files + local files (local wins on duplicate id)
 export const useMergedQueue = (remoteFiles?: FileItem[]): FileItem[] => {

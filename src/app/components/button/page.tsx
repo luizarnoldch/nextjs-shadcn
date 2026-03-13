@@ -6,12 +6,18 @@ import { Loader2, Mail, Send } from "lucide-react";
 
 export default function ButtonPage() {
   // Configurable Props
-  const [variant, setVariant] = useState<"default" | "destructive" | "outline" | "secondary" | "ghost" | "link">("default");
-  const [size, setSize] = useState<"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg">("default");
+  const [variant, setVariant] = useState<
+    "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
+  >("default");
+  const [size, setSize] = useState<
+    "default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"
+  >("default");
   const [text, setText] = useState("Button Text");
 
   // Icon / State logic
-  const [iconPosition, setIconPosition] = useState<"none" | "left" | "right" | "only">("none");
+  const [iconPosition, setIconPosition] = useState<
+    "none" | "left" | "right" | "only"
+  >("none");
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -36,7 +42,7 @@ export default function ButtonPage() {
     } else if (newPos !== "only" && size.startsWith("icon")) {
       setSize("default");
     }
-  }
+  };
 
   // Visualization Colors
   const hlVariant = "bg-blue-500/30 text-blue-200 px-1 py-0.5 rounded"; // variant
@@ -60,22 +66,35 @@ export default function ButtonPage() {
   const getCodeString = () => {
     let imports = [];
     if (isLoading) imports.push("Loader2");
-    if (!isLoading && (iconPosition === "left" || iconPosition === "only")) imports.push("Mail");
+    if (!isLoading && (iconPosition === "left" || iconPosition === "only"))
+      imports.push("Mail");
     if (!isLoading && iconPosition === "right") imports.push("Send");
 
-    const importStr = imports.length > 0 ? `\nimport { ${imports.join(", ")} } from "lucide-react"` : "";
+    const importStr =
+      imports.length > 0
+        ? `\nimport { ${imports.join(", ")} } from "lucide-react"`
+        : "";
 
-    const variantProp = variant !== "default" ? ` variant="<span class="${hlVariant}">${variant}</span>"` : "";
-    const sizeProp = size !== "default" ? ` size="<span class="${hlSize}">${size}</span>"` : "";
-    const disabledProp = isDisabled || isLoading ? ` <span class="${hlState}">disabled</span>` : "";
+    const variantProp =
+      variant !== "default"
+        ? ` variant="<span class="${hlVariant}">${variant}</span>"`
+        : "";
+    const sizeProp =
+      size !== "default"
+        ? ` size="<span class="${hlSize}">${size}</span>"`
+        : "";
+    const disabledProp =
+      isDisabled || isLoading
+        ? ` <span class="${hlState}">disabled</span>`
+        : "";
 
     let innerContent = "";
     if (iconPosition === "only") {
-      innerContent = `\n      <span class="${hlContent}"><${isLoading ? "Loader2 className=\"animate-spin\" " : "Mail "}/></span>\n    `;
+      innerContent = `\n      <span class="${hlContent}"><${isLoading ? 'Loader2 className="animate-spin" ' : "Mail "}/></span>\n    `;
     } else if (iconPosition === "left") {
-      innerContent = `\n      <span class="${hlContent}"><${isLoading ? "Loader2 className=\"animate-spin\" " : "Mail "}/></span>\n      ${text}\n    `;
+      innerContent = `\n      <span class="${hlContent}"><${isLoading ? 'Loader2 className="animate-spin" ' : "Mail "}/></span>\n      ${text}\n    `;
     } else if (iconPosition === "right") {
-      innerContent = `\n      ${text}\n      <span class="${hlContent}"><${isLoading ? "Loader2 className=\"animate-spin\" " : "Send "}/></span>\n    `;
+      innerContent = `\n      ${text}\n      <span class="${hlContent}"><${isLoading ? 'Loader2 className="animate-spin" ' : "Send "}/></span>\n    `;
     } else {
       innerContent = `${text}`;
     }
@@ -89,50 +108,99 @@ export default function ButtonDemo() {
 }`;
   };
 
-  const rawCodeContent = getCodeString().replace(/<span class=".*?">/g, '').replace(/<\/span>/g, '');
+  const rawCodeContent = getCodeString()
+    .replace(/<span class=".*?">/g, "")
+    .replace(/<\/span>/g, "");
 
   return (
     <div className="flex flex-col gap-6 p-4">
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Button</h1>
         <p className="text-muted-foreground">
-          Displays a button or a component that looks like a button with multiple variants, sizes, and states.
+          Displays a button or a component that looks like a button with
+          multiple variants, sizes, and states.
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full lg:w-[450px] p-6 border rounded-lg bg-card max-h-[85vh] overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-2 sticky top-0 bg-card z-10 py-2 border-b">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 sticky top-0 bg-card z-10 py-2 border-b">
+            Configuration
+          </h2>
 
           {/* 1. Core Props */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-md font-semibold text-blue-400">1. Variant & Size</h3>
+            <h3 className="text-md font-semibold text-blue-400">
+              1. Variant & Size
+            </h3>
 
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Variant</span>
               <div className="grid grid-cols-2 gap-2">
-                {(["default", "destructive", "outline", "secondary", "ghost", "link"] as const).map((v) => (
-                  <Button key={v} variant={variant === v ? "default" : "outline"} size="sm" onClick={() => setVariant(v)}>{v}</Button>
+                {(
+                  [
+                    "default",
+                    "destructive",
+                    "outline",
+                    "secondary",
+                    "ghost",
+                    "link",
+                  ] as const
+                ).map((v) => (
+                  <Button
+                    key={v}
+                    variant={variant === v ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setVariant(v)}
+                  >
+                    {v}
+                  </Button>
                 ))}
               </div>
             </div>
 
             <div className="flex flex-col gap-2 mt-2">
-              <span className="text-sm font-medium">Text Sizes <span className="text-muted-foreground text-xs font-normal">(xs, sm, default, lg)</span></span>
+              <span className="text-sm font-medium">
+                Text Sizes{" "}
+                <span className="text-muted-foreground text-xs font-normal">
+                  (xs, sm, default, lg)
+                </span>
+              </span>
               <div className="flex gap-2 flex-wrap">
                 {(["xs", "sm", "default", "lg"] as const).map((s) => (
-                  <Button key={s} variant={size === s ? "default" : "outline"} size="sm" onClick={() => handleSizeChange(s)}>{s}</Button>
+                  <Button
+                    key={s}
+                    variant={size === s ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => handleSizeChange(s)}
+                  >
+                    {s}
+                  </Button>
                 ))}
               </div>
             </div>
 
             <div className="flex flex-col gap-2 mt-1">
-              <span className="text-sm font-medium">Icon-Only Sizes <span className="text-muted-foreground text-xs font-normal">(icon-xs, icon-sm, icon, icon-lg)</span></span>
+              <span className="text-sm font-medium">
+                Icon-Only Sizes{" "}
+                <span className="text-muted-foreground text-xs font-normal">
+                  (icon-xs, icon-sm, icon, icon-lg)
+                </span>
+              </span>
               <div className="flex gap-2 flex-wrap">
-                {(["icon-xs", "icon-sm", "icon", "icon-lg"] as const).map((s) => (
-                  <Button key={s} variant={size === s ? "default" : "outline"} size="sm" onClick={() => handleSizeChange(s)}>{s}</Button>
-                ))}
+                {(["icon-xs", "icon-sm", "icon", "icon-lg"] as const).map(
+                  (s) => (
+                    <Button
+                      key={s}
+                      variant={size === s ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleSizeChange(s)}
+                    >
+                      {s}
+                    </Button>
+                  ),
+                )}
               </div>
             </div>
           </div>
@@ -141,14 +209,20 @@ export default function ButtonDemo() {
 
           {/* 2. Content & Icons */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-md font-semibold text-purple-400">2. Content & Composition</h3>
+            <h3 className="text-md font-semibold text-purple-400">
+              2. Content & Composition
+            </h3>
 
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium flex justify-between">
                 Button Text
-                <span className="text-xs text-muted-foreground font-normal">{isIconSize ? "Disabled in Icon size" : ""}</span>
+                <span className="text-xs text-muted-foreground font-normal">
+                  {isIconSize ? "Disabled in Icon size" : ""}
+                </span>
               </span>
-              <input type="text" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm disabled:opacity-50"
+              <input
+                type="text"
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm disabled:opacity-50"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 disabled={isIconSize}
@@ -158,10 +232,37 @@ export default function ButtonDemo() {
             <div className="flex flex-col gap-2 mt-2">
               <span className="text-sm font-medium">Icon Structure</span>
               <div className="flex gap-2 flex-wrap">
-                <Button variant={iconPosition === "none" ? "default" : "outline"} size="sm" onClick={() => handlePositionChange("none")} disabled={isIconSize}>None</Button>
-                <Button variant={iconPosition === "left" ? "default" : "outline"} size="sm" onClick={() => handlePositionChange("left")} disabled={isIconSize}>Left Icon</Button>
-                <Button variant={iconPosition === "right" ? "default" : "outline"} size="sm" onClick={() => handlePositionChange("right")} disabled={isIconSize}>Right Icon</Button>
-                <Button variant={iconPosition === "only" ? "default" : "outline"} size="sm" onClick={() => handlePositionChange("only")}>Icon Only</Button>
+                <Button
+                  variant={iconPosition === "none" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePositionChange("none")}
+                  disabled={isIconSize}
+                >
+                  None
+                </Button>
+                <Button
+                  variant={iconPosition === "left" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePositionChange("left")}
+                  disabled={isIconSize}
+                >
+                  Left Icon
+                </Button>
+                <Button
+                  variant={iconPosition === "right" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePositionChange("right")}
+                  disabled={isIconSize}
+                >
+                  Right Icon
+                </Button>
+                <Button
+                  variant={iconPosition === "only" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePositionChange("only")}
+                >
+                  Icon Only
+                </Button>
               </div>
             </div>
           </div>
@@ -170,16 +271,39 @@ export default function ButtonDemo() {
 
           {/* 3. States */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-md font-semibold text-red-400">3. Interactivity States</h3>
+            <h3 className="text-md font-semibold text-red-400">
+              3. Interactivity States
+            </h3>
 
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Disabled / Loading</span>
               <div className="flex gap-2">
-                <Button variant={isDisabled ? "default" : "outline"} size="sm" onClick={() => { setIsDisabled(!isDisabled); setIsLoading(false); }}>Toggle Disabled</Button>
-                <Button variant={isLoading ? "default" : "outline"} size="sm" onClick={() => { setIsLoading(!isLoading); setIsDisabled(false); }}>Toggle Loading</Button>
+                <Button
+                  variant={isDisabled ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => {
+                    setIsDisabled(!isDisabled);
+                    setIsLoading(false);
+                  }}
+                >
+                  Toggle Disabled
+                </Button>
+                <Button
+                  variant={isLoading ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => {
+                    setIsLoading(!isLoading);
+                    setIsDisabled(false);
+                  }}
+                >
+                  Toggle Loading
+                </Button>
               </div>
               {(isDisabled || isLoading) && (
-                <p className="text-xs text-muted-foreground mt-1">Button is currently un-clickable via native `disabled` attribute.</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Button is currently un-clickable via native `disabled`
+                  attribute.
+                </p>
               )}
             </div>
           </div>
@@ -212,7 +336,9 @@ export default function ButtonDemo() {
       <div className="mt-2 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
           <div className="flex flex-col gap-2">
-            <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+            <h2 className="text-lg font-semibold text-zinc-100">
+              Generated Code
+            </h2>
             <div className="flex flex-wrap gap-4 text-xs font-mono">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-blue-500"></span>
@@ -248,13 +374,19 @@ export default function ButtonDemo() {
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;")
               .replace(/import/g, `<span class="${kw}">import</span>`)
-              .replace(/export default function/g, `<span class="${kw}">export default function</span>`)
+              .replace(
+                /export default function/g,
+                `<span class="${kw}">export default function</span>`,
+              )
               .replace(/return/g, `<span class="${kw}">return</span>`)
               // Restore HTML tags for highlighting spans
-              .replace(/&lt;span class=(.*?)&gt;/g, '<span class=$1>')
-              .replace(/&lt;\/span&gt;/g, '</span>')
+              .replace(/&lt;span class=(.*?)&gt;/g, "<span class=$1>")
+              .replace(/&lt;\/span&gt;/g, "</span>")
               // Base structural coloring
-              .replace(/&lt;(\/?)Button/g, `&lt;$1<span class="${tag}">Button</span>`)
+              .replace(
+                /&lt;(\/?)Button/g,
+                `&lt;$1<span class="${tag}">Button</span>`,
+              ),
           }}
         />
       </div>

@@ -1,46 +1,11 @@
 "use client";
 
-import { useCallback } from "react";
 import { UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useDropzone } from "react-dropzone";
-import useCreateFile from "../../hooks/useCreateFile";
-import { FileState, FileVisibility } from "@/generated/prisma/enums";
-import { useStoreAddFilesToQueue } from "../../stores/file.store";
+import { useFileDropZone } from "../../hooks/useFileDropZone";
 
-type Props = {
-};
-
-const FileDropZoneArea = ({ }: Props) => {
-  const addFilesToQueue = useStoreAddFilesToQueue();
-  const { mutateAsync: createFile } = useCreateFile();
-
-  const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
-      const fileItems = await Promise.all(
-        acceptedFiles.map(async (file) => {
-          const newFile = await createFile({
-            name: file.name,
-            type: file.type,
-            size: file.size,
-            state: FileState.PENDING,
-            visibility: FileVisibility.PUBLIC,
-          });
-
-          return {
-            ...newFile,
-            origin: "local" as const,
-            file,
-            url: newFile.url || "",
-            presignURL: newFile.presignedUrl || "",
-          };
-        })
-      );
-      addFilesToQueue(fileItems);
-    },
-    [addFilesToQueue, createFile]
-  );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+const FileDropZoneArea = () => {
+  const { getRootProps, getInputProps, isDragActive } = useFileDropZone();
   return (
     <div
       {...getRootProps()}
@@ -48,7 +13,7 @@ const FileDropZoneArea = ({ }: Props) => {
         "relative flex flex-col items-center justify-center w-full p-12 border-2 border-dashed rounded-xl cursor-pointer transition-colors duration-200 ease-in-out",
         isDragActive
           ? "border-primary bg-primary/5"
-          : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50"
+          : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50",
       )}
     >
       <input {...getInputProps()} />

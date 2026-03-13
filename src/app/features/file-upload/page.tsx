@@ -1,9 +1,7 @@
-import FileView from '@/features/file/views/FileView'
+import FileView from "@/features/file/views/FileView";
 
 const FileUploadPage = () => {
-  return (
-    <FileView />
-  )
-}
+  return <FileView />;
+};
 
-export default FileUploadPage
+export default FileUploadPage;

@@ -7,7 +7,10 @@ type FileFormActionsProps = {
   isPending: boolean;
 };
 
-export default function FileFormActions({ form, isPending }: FileFormActionsProps) {
+export default function FileFormActions({
+  form,
+  isPending,
+}: FileFormActionsProps) {
   return (
     <div className="flex justify-end gap-2">
       <Button

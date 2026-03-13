@@ -1,14 +1,14 @@
 // components/ProductList.tsx
-import { FC } from 'react'
+import { FC } from "react";
 
 interface Product {
-  id: number
-  name: string
-  category: string
+  id: number;
+  name: string;
+  category: string;
 }
 
 interface ProductListProps {
-  products: Product[]
+  products: Product[];
 }
 
 const ProductList: FC<ProductListProps> = ({ products }) => {
@@ -20,7 +20,7 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;

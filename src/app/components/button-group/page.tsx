@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   ButtonGroup,
   ButtonGroupSeparator,
-  ButtonGroupText
+  ButtonGroupText,
 } from "@/components/ui/button-group";
 import {
   AlignLeft,
@@ -14,21 +14,29 @@ import {
   AlignJustify,
   Bold,
   Italic,
-  Underline
+  Underline,
 } from "lucide-react";
 
 export default function ButtonGroupPage() {
   // Configurable Props
-  const [orientation, setOrientation] = useState<"horizontal" | "vertical">("horizontal");
+  const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
+    "horizontal",
+  );
   const [showSeparator, setShowSeparator] = useState<boolean>(true);
   const [showPrefixText, setShowPrefixText] = useState<boolean>(false);
 
   // Interactive State for realism
-  const [alignment, setAlignment] = useState<"left" | "center" | "right" | "justify">("left");
-  const [activeFormats, setActiveFormats] = useState<Record<string, boolean>>({ bold: false, italic: false, underline: false });
+  const [alignment, setAlignment] = useState<
+    "left" | "center" | "right" | "justify"
+  >("left");
+  const [activeFormats, setActiveFormats] = useState<Record<string, boolean>>({
+    bold: false,
+    italic: false,
+    underline: false,
+  });
 
   const toggleFormat = (key: string) => {
-    setActiveFormats(p => ({ ...p, [key]: !p[key] }));
+    setActiveFormats((p) => ({ ...p, [key]: !p[key] }));
   };
 
   // Highlights mapping
@@ -43,7 +51,10 @@ export default function ButtonGroupPage() {
   const attr = "text-sky-300";
 
   const generateCodeDynamic = () => {
-    const orientationProp = orientation === "vertical" ? ` <span class="${hlLogic}">orientation</span>=<span class="${str}">"vertical"</span>` : "";
+    const orientationProp =
+      orientation === "vertical"
+        ? ` <span class="${hlLogic}">orientation</span>=<span class="${str}">"vertical"</span>`
+        : "";
 
     let contentStr = "";
 
@@ -64,7 +75,8 @@ export default function ButtonGroupPage() {
 
     // Separator
     if (showSeparator) {
-      const sepOrient = orientation === "horizontal" ? "vertical" : "horizontal";
+      const sepOrient =
+        orientation === "horizontal" ? "vertical" : "horizontal";
       contentStr += `\n      <span class="${hlSep}"><ButtonGroupSeparator orientation="${sepOrient}" /></span>`;
     }
 
@@ -87,32 +99,53 @@ export default function ButtonGroupDemo() {
 }`;
   };
 
-  const rawCodeContent = generateCodeDynamic().replace(/<span class=".*?">/g, '').replace(/<\/span>/g, '');
+  const rawCodeContent = generateCodeDynamic()
+    .replace(/<span class=".*?">/g, "")
+    .replace(/<\/span>/g, "");
 
   return (
     <div className="flex flex-col gap-6 p-4">
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Button Group</h1>
         <p className="text-muted-foreground">
-          Combines multiple buttons into a single visually connected toolbar or segmented control.
+          Combines multiple buttons into a single visually connected toolbar or
+          segmented control.
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full lg:w-[450px] p-6 border rounded-lg bg-card max-h-[85vh] overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-2 sticky top-0 bg-card z-10 py-2 border-b">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 sticky top-0 bg-card z-10 py-2 border-b">
+            Configuration
+          </h2>
 
           {/* 1. Core Props */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-md font-semibold text-blue-400">1. Orientation</h3>
+            <h3 className="text-md font-semibold text-blue-400">
+              1. Orientation
+            </h3>
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Layout Direction</span>
               <div className="flex gap-2">
-                <Button variant={orientation === "horizontal" ? "default" : "outline"} size="sm" onClick={() => setOrientation("horizontal")}>Horizontal</Button>
-                <Button variant={orientation === "vertical" ? "default" : "outline"} size="sm" onClick={() => setOrientation("vertical")}>Vertical</Button>
+                <Button
+                  variant={orientation === "horizontal" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setOrientation("horizontal")}
+                >
+                  Horizontal
+                </Button>
+                <Button
+                  variant={orientation === "vertical" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setOrientation("vertical")}
+                >
+                  Vertical
+                </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">Changes the border culling algorithm automatically.</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Changes the border culling algorithm automatically.
+              </p>
             </div>
           </div>
 
@@ -120,21 +153,47 @@ export default function ButtonGroupDemo() {
 
           {/* 2. Composition */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-md font-semibold text-purple-400">2. Sub-Components</h3>
+            <h3 className="text-md font-semibold text-purple-400">
+              2. Sub-Components
+            </h3>
 
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Text Prefix / Addon</span>
               <div className="flex gap-2 flex-wrap">
-                <Button variant={!showPrefixText ? "default" : "outline"} size="sm" onClick={() => setShowPrefixText(false)}>Hide</Button>
-                <Button variant={showPrefixText ? "default" : "outline"} size="sm" onClick={() => setShowPrefixText(true)}>Show &lt;ButtonGroupText&gt;</Button>
+                <Button
+                  variant={!showPrefixText ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowPrefixText(false)}
+                >
+                  Hide
+                </Button>
+                <Button
+                  variant={showPrefixText ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowPrefixText(true)}
+                >
+                  Show &lt;ButtonGroupText&gt;
+                </Button>
               </div>
             </div>
 
             <div className="flex flex-col gap-2 mt-2">
               <span className="text-sm font-medium">Inner Separators</span>
               <div className="flex gap-2 flex-wrap">
-                <Button variant={!showSeparator ? "default" : "outline"} size="sm" onClick={() => setShowSeparator(false)}>None</Button>
-                <Button variant={showSeparator ? "default" : "outline"} size="sm" onClick={() => setShowSeparator(true)}>Show &lt;ButtonGroupSeparator&gt;</Button>
+                <Button
+                  variant={!showSeparator ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowSeparator(false)}
+                >
+                  None
+                </Button>
+                <Button
+                  variant={showSeparator ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowSeparator(true)}
+                >
+                  Show &lt;ButtonGroupSeparator&gt;
+                </Button>
               </div>
             </div>
           </div>
@@ -148,7 +207,13 @@ export default function ButtonGroupDemo() {
             <ButtonGroup orientation={orientation}>
               {/* Prefix Text */}
               {showPrefixText && (
-                <ButtonGroupText className={orientation === "vertical" ? "flex justify-center border-b-0" : ""}>
+                <ButtonGroupText
+                  className={
+                    orientation === "vertical"
+                      ? "flex justify-center border-b-0"
+                      : ""
+                  }
+                >
                   {orientation === "horizontal" ? "Format" : "Fx"}
                 </ButtonGroupText>
               )}
@@ -185,7 +250,11 @@ export default function ButtonGroupDemo() {
 
               {/* Structural Split */}
               {showSeparator && (
-                <ButtonGroupSeparator orientation={orientation === "horizontal" ? "vertical" : "horizontal"} />
+                <ButtonGroupSeparator
+                  orientation={
+                    orientation === "horizontal" ? "vertical" : "horizontal"
+                  }
+                />
               )}
 
               {/* Logical Group 2: Formatting */}
@@ -210,7 +279,6 @@ export default function ButtonGroupDemo() {
               >
                 <Underline className="w-4 h-4" />
               </Button>
-
             </ButtonGroup>
           </div>
         </div>
@@ -220,7 +288,9 @@ export default function ButtonGroupDemo() {
       <div className="mt-2 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
           <div className="flex flex-col gap-2">
-            <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+            <h2 className="text-lg font-semibold text-zinc-100">
+              Generated Code
+            </h2>
             <div className="flex flex-wrap gap-4 text-xs font-mono">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-blue-500"></span>
@@ -252,16 +322,28 @@ export default function ButtonGroupDemo() {
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;")
               .replace(/import/g, `<span class="${kw}">import</span>`)
-              .replace(/export default function/g, `<span class="${kw}">export default function</span>`)
+              .replace(
+                /export default function/g,
+                `<span class="${kw}">export default function</span>`,
+              )
               .replace(/return/g, `<span class="${kw}">return</span>`)
               // Restore HTML tags for highlighting spans
-              .replace(/&lt;span class=(.*?)&gt;/g, '<span class=$1>')
-              .replace(/&lt;\/span&gt;/g, '</span>')
+              .replace(/&lt;span class=(.*?)&gt;/g, "<span class=$1>")
+              .replace(/&lt;\/span&gt;/g, "</span>")
               // Base structural coloring
-              .replace(/&lt;(\/?)Button/g, `&lt;$1<span class="${tag}">Button</span>`)
-              .replace(/&lt;(\/?)(Align|Bold|Italic|Underline)([^&]*)&gt;/g, `&lt;$1<span class="text-yellow-300">$2</span>$3&gt;`)
+              .replace(
+                /&lt;(\/?)Button/g,
+                `&lt;$1<span class="${tag}">Button</span>`,
+              )
+              .replace(
+                /&lt;(\/?)(Align|Bold|Italic|Underline)([^&]*)&gt;/g,
+                `&lt;$1<span class="text-yellow-300">$2</span>$3&gt;`,
+              )
               // Fix the explicit button logic that matched the Button replacing rules over-aggressively
-              .replace(/&lt;(\/?)ButtonGroup/g, `&lt;$1<span class="${tag}">ButtonGroup</span>`)
+              .replace(
+                /&lt;(\/?)ButtonGroup/g,
+                `&lt;$1<span class="${tag}">ButtonGroup</span>`,
+              ),
           }}
         />
       </div>

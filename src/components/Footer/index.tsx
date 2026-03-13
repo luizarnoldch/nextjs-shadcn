@@ -1,5 +1,10 @@
-import Link from 'next/link';
-import { FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon } from 'lucide-react';
+import Link from "next/link";
+import {
+  FacebookIcon,
+  TwitterIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from "lucide-react";
 
 const Footer = () => {
   return (
@@ -86,23 +91,41 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start space-y-4">
             <h3 className="font-semibold">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" aria-label="Facebook" className="hover:text-gray-400">
+              <a
+                href="https://facebook.com"
+                aria-label="Facebook"
+                className="hover:text-gray-400"
+              >
                 <FacebookIcon className="w-6 h-6" />
               </a>
-              <a href="https://twitter.com" aria-label="Twitter" className="hover:text-gray-400">
+              <a
+                href="https://twitter.com"
+                aria-label="Twitter"
+                className="hover:text-gray-400"
+              >
                 <TwitterIcon className="w-6 h-6" />
               </a>
-              <a href="https://instagram.com" aria-label="Instagram" className="hover:text-gray-400">
+              <a
+                href="https://instagram.com"
+                aria-label="Instagram"
+                className="hover:text-gray-400"
+              >
                 <InstagramIcon className="w-6 h-6" />
               </a>
-              <a href="https://linkedin.com" aria-label="LinkedIn" className="hover:text-gray-400">
+              <a
+                href="https://linkedin.com"
+                aria-label="LinkedIn"
+                className="hover:text-gray-400"
+              >
                 <LinkedinIcon className="w-6 h-6" />
               </a>
             </div>
           </div>
         </div>
         <div className="mt-10 border-t border-gray-600 pt-4 text-center">
-          <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
+          <p className="text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

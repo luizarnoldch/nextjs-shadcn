@@ -52,21 +52,27 @@ export default function ComboboxDemoPage() {
       parts.push(`    >`);
       parts.push(`      <ComboboxChips>`);
       parts.push(`        {values.map((v) => {`);
-      parts.push(`          const label = frameworks.find((f) => f.value === v)?.label\n`);
+      parts.push(
+        `          const label = frameworks.find((f) => f.value === v)?.label\n`,
+      );
       parts.push(`          return (`);
       parts.push(`            <ComboboxChip key={v} value={v}>`);
       parts.push(`              {label}`);
       parts.push(`            </ComboboxChip>`);
       parts.push(`          )`);
       parts.push(`        })}`);
-      parts.push(`        <ComboboxChipsInput placeholder="Select frameworks..." />`);
+      parts.push(
+        `        <ComboboxChipsInput placeholder="Select frameworks..." />`,
+      );
       parts.push(`      </ComboboxChips>`);
     } else {
       parts.push(`      value={value}`);
       parts.push(`      onValueChange={setValue}`);
       parts.push(`    >`);
       if (showClear) {
-        parts.push(`      <ComboboxInput placeholder="Select framework..." showClear />`);
+        parts.push(
+          `      <ComboboxInput placeholder="Select framework..." showClear />`,
+        );
       } else {
         parts.push(`      <ComboboxInput placeholder="Select framework..." />`);
       }
@@ -76,7 +82,9 @@ export default function ComboboxDemoPage() {
     parts.push(`        <ComboboxEmpty>No framework found.</ComboboxEmpty>`);
     parts.push(`        <ComboboxList>`);
     parts.push(`          {frameworks.map((framework) => (`);
-    parts.push(`            <ComboboxItem key={framework.value} value={framework.value}>`);
+    parts.push(
+      `            <ComboboxItem key={framework.value} value={framework.value}>`,
+    );
     parts.push(`              {framework.label}`);
     parts.push(`            </ComboboxItem>`);
     parts.push(`          ))}`);
@@ -102,7 +110,9 @@ export default function ComboboxDemoPage() {
       importsList.push("ComboboxInput");
     }
 
-    const stateType = multiple ? `const [values, setValues] = React.useState<string[]>(["next.js", "astro"])` : `const [value, setValue] = React.useState<string>("next.js")`;
+    const stateType = multiple
+      ? `const [values, setValues] = React.useState<string[]>(["next.js", "astro"])`
+      : `const [value, setValue] = React.useState<string>("next.js")`;
 
     return `import * as React from "react"
 import { 
@@ -127,28 +137,49 @@ ${innerJSX}
   };
 
   // prettier-ignore
-  const rawCodeContent = generateCode()
+  const rawCodeContent = generateCode();
 
   // prettier-ignore
   const highlightedCode = generateCode()
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
     .replace(/const/g, `<span class="${hlKw}">const</span>`)
     // Tags
-    .replace(/&lt;(\/?)Combobox([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Combobox$2</span>$3&gt;`)
+    .replace(
+      /&lt;(\/?)Combobox([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Combobox$2</span>$3&gt;`,
+    )
     // Attributes
-    .replace(/ placeholder="([^"]+)"/g, ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ key="([^"]+)"/g, ` <span class="${hlProp}">key</span>="<span class="${hlVal}">$1</span>"`)
+    .replace(
+      / placeholder="([^"]+)"/g,
+      ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / key="([^"]+)"/g,
+      ` <span class="${hlProp}">key</span>="<span class="${hlVal}">$1</span>"`,
+    )
     .replace(/ disabled/g, ` <span class="${hlProp}">disabled</span>`)
     .replace(/ multiple/g, ` <span class="${hlProp}">multiple</span>`)
     .replace(/ showClear/g, ` <span class="${hlProp}">showClear</span>`)
     // React expressions
-    .replace(/ value=\{([^}]+)\}/g, ` <span class="${hlProp}">value</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ onValueChange=\{([^}]+)\}/g, ` <span class="${hlProp}">onValueChange</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ key=\{([^}]+)\}/g, ` <span class="${hlProp}">key</span>={<span class="${hlVal}">$1</span>}`);
+    .replace(
+      / value=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">value</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / onValueChange=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">onValueChange</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / key=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">key</span>={<span class="${hlVal}">$1</span>}`,
+    );
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -162,15 +193,21 @@ ${innerJSX}
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full lg:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Selection Mode</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Selection Mode
+            </h3>
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Multiple</span>
-                <span className="text-xs text-muted-foreground">Allow multiple choices</span>
+                <span className="text-xs text-muted-foreground">
+                  Allow multiple choices
+                </span>
               </div>
               <Button
                 variant={multiple ? "default" : "secondary"}
@@ -185,7 +222,9 @@ ${innerJSX}
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">Show Clear Button</span>
-                  <span className="text-xs text-muted-foreground">Adds an X to reset</span>
+                  <span className="text-xs text-muted-foreground">
+                    Adds an X to reset
+                  </span>
                 </div>
                 <Button
                   variant={showClear ? "default" : "secondary"}
@@ -202,7 +241,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Disabled State</span>
-                <span className="text-xs text-muted-foreground">Disable input interaction</span>
+                <span className="text-xs text-muted-foreground">
+                  Disable input interaction
+                </span>
               </div>
               <Button
                 variant={disabled ? "default" : "secondary"}
@@ -242,7 +283,10 @@ ${innerJSX}
                   <ComboboxEmpty>No framework found.</ComboboxEmpty>
                   <ComboboxList>
                     {frameworks.map((framework) => (
-                      <ComboboxItem key={framework.value} value={framework.value}>
+                      <ComboboxItem
+                        key={framework.value}
+                        value={framework.value}
+                      >
                         {framework.label}
                       </ComboboxItem>
                     ))}
@@ -255,12 +299,18 @@ ${innerJSX}
                 value={value}
                 onValueChange={(val) => setValue(val as string)}
               >
-                <ComboboxInput placeholder="Select framework..." showClear={showClear} />
+                <ComboboxInput
+                  placeholder="Select framework..."
+                  showClear={showClear}
+                />
                 <ComboboxContent>
                   <ComboboxEmpty>No framework found.</ComboboxEmpty>
                   <ComboboxList>
                     {frameworks.map((framework) => (
-                      <ComboboxItem key={framework.value} value={framework.value}>
+                      <ComboboxItem
+                        key={framework.value}
+                        value={framework.value}
+                      >
                         {framework.label}
                       </ComboboxItem>
                     ))}
@@ -274,7 +324,9 @@ ${innerJSX}
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

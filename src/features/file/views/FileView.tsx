@@ -23,7 +23,6 @@ export default function FileView() {
               <FileDropZone />
             </Suspense>
           </ErrorBoundary>
-
         </div>
       </FileLayout>
     </HydrateFiles>

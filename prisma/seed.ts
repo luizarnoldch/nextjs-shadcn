@@ -31,7 +31,6 @@ async function insertPublicAssets(bucketName: string) {
     //   const filePath = path.join(assets_directory, file)
     //   const fileBuffer = await fs.readFile(filePath)
     //   const objectName = `assets/${file}`
-
     //   await s3Client.putObject(bucketName, objectName, fileBuffer)
     //   console.log(`Uploaded ${file} to ${bucketName}/${objectName}`)
     // }
@@ -54,7 +53,6 @@ async function insertPrivateDefaultImages(bucketName: string) {
     //   const filePath = path.join(profile_directory, file)
     //   const fileBuffer = await fs.readFile(filePath)
     //   const objectName = `default/profiles_imgs/${file}`
-
     //   await s3Client.putObject(bucketName, objectName, fileBuffer)
     //   console.log(`Uploaded ${file} to ${bucketName}/${objectName}`)
     // }
@@ -66,13 +64,13 @@ async function insertPrivateDefaultImages(bucketName: string) {
 
 const getPublicReadPolicy = (bucketName: string) => {
   return JSON.stringify({
-    Version: '2012-10-17',
+    Version: "2012-10-17",
     Statement: [
       {
-        Sid: 'PublicReadGetObject',
-        Effect: 'Allow',
-        Principal: '*', // Permite el acceso a cualquier persona
-        Action: ['s3:GetObject'], // Solo permite leer/descargar, NO escribir ni borrar
+        Sid: "PublicReadGetObject",
+        Effect: "Allow",
+        Principal: "*", // Permite el acceso a cualquier persona
+        Action: ["s3:GetObject"], // Solo permite leer/descargar, NO escribir ni borrar
         Resource: [`arn:aws:s3:::${bucketName}/*`], // Aplica a todos los objetos dentro del bucket
       },
     ],
@@ -81,15 +79,18 @@ const getPublicReadPolicy = (bucketName: string) => {
 
 async function createBucket(bucketName: string, bucketRegion: string) {
   try {
-    const bucketExists = await s3Client.bucketExists(bucketName)
+    const bucketExists = await s3Client.bucketExists(bucketName);
     if (!bucketExists) {
-      await s3Client.makeBucket(bucketName, bucketRegion)
+      await s3Client.makeBucket(bucketName, bucketRegion);
       console.log(`Bucket ${bucketName} created.`);
     } else {
       console.log(`Bucket ${bucketName} already exists.`);
     }
   } catch (error: any) {
-    if (error.code === "BucketAlreadyOwnedByYou" || error.code === "BucketAlreadyExists") {
+    if (
+      error.code === "BucketAlreadyOwnedByYou" ||
+      error.code === "BucketAlreadyExists"
+    ) {
       console.log(`Bucket ${bucketName} already exists.`);
     } else {
       console.error("Error creating bucket:", error);
@@ -99,7 +100,7 @@ async function createBucket(bucketName: string, bucketRegion: string) {
 }
 
 async function main() {
-  await createBucket(config.minio.bucketName, config.minio.region)
+  await createBucket(config.minio.bucketName, config.minio.region);
 
   try {
     const policy = getPublicReadPolicy(config.minio.bucketName);
@@ -109,7 +110,7 @@ async function main() {
     console.error("Error setting bucket policy:", error);
   }
 
-  await insertPrivateDefaultImages(config.minio.bucketName)
+  await insertPrivateDefaultImages(config.minio.bucketName);
 }
 
 main()

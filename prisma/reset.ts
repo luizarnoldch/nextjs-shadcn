@@ -7,14 +7,16 @@ async function cleanBuckets() {
     for (const bucket of listBuckets) {
       if (!bucket.name) continue;
       try {
-        const objectsStream = s3Client.listObjects(bucket.name, '', true);
+        const objectsStream = s3Client.listObjects(bucket.name, "", true);
         const objectsToDelete: string[] = [];
         for await (const obj of objectsStream) {
           if (obj.name) objectsToDelete.push(obj.name);
         }
         if (objectsToDelete.length > 0) {
           await s3Client.removeObjects(bucket.name, objectsToDelete);
-          console.log(`Emptying bucket ${bucket.name}: deleted ${objectsToDelete.length} objects`);
+          console.log(
+            `Emptying bucket ${bucket.name}: deleted ${objectsToDelete.length} objects`,
+          );
         }
         await s3Client.removeBucket(bucket.name);
         console.log(`Removed bucket: ${bucket.name}`);
@@ -66,11 +68,14 @@ async function cleanDatabase() {
       if (!tablename || !schemaname) continue;
       try {
         await prisma.$executeRawUnsafe(
-          `TRUNCATE TABLE "${schemaname}"."${tablename}" RESTART IDENTITY CASCADE;`
+          `TRUNCATE TABLE "${schemaname}"."${tablename}" RESTART IDENTITY CASCADE;`,
         );
         console.log(`Truncated table: ${schemaname}.${tablename}`);
       } catch (error) {
-        console.error(`Failed to truncate table ${schemaname}.${tablename}:`, error);
+        console.error(
+          `Failed to truncate table ${schemaname}.${tablename}:`,
+          error,
+        );
       }
     }
     console.log("Database cleaned successfully.");
@@ -81,7 +86,9 @@ async function cleanDatabase() {
 
 async function main() {
   if (process.env.NODE_ENV === "production") {
-    console.error("Refusing to reset database and delete bucket in production environment.");
+    console.error(
+      "Refusing to reset database and delete bucket in production environment.",
+    );
     return;
   }
 

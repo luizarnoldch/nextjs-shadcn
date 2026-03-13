@@ -40,10 +40,19 @@ export default function KbdExample() {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, '<span class="text-pink-400">import</span>')
-    .replace(/export default function/g, '<span class="text-pink-400">export default function</span>')
+    .replace(
+      /export default function/g,
+      '<span class="text-pink-400">export default function</span>',
+    )
     .replace(/return/g, '<span class="text-pink-400">return</span>')
-    .replace(/&lt;(\/?)Kbd(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">Kbd</span>$2&gt;')
-    .replace(/&lt;(\/?)KbdGroup(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">KbdGroup</span>$2&gt;');
+    .replace(
+      /&lt;(\/?)Kbd(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">Kbd</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)KbdGroup(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">KbdGroup</span>$2&gt;',
+    );
 
   // Renderizado
   const renderKbd = () => {
@@ -66,24 +75,41 @@ export default function KbdExample() {
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Kbd</h1>
         <p className="text-muted-foreground">
-          Componente para mostrar teclas o combinaciones de teclado. Prueba las variaciones y copia el código generado.
+          Componente para mostrar teclas o combinaciones de teclado. Prueba las
+          variaciones y copia el código generado.
         </p>
       </div>
 
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controles */}
         <div className="flex flex-col gap-6 w-full xl:w-100 p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuración</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuración
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Variantes</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Variantes
+            </h3>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Agrupado</span>
-              <Button variant={grouped ? "default" : "secondary"} size="sm" onClick={() => setGrouped(!grouped)}>{grouped ? "Activado" : "Desactivado"}</Button>
+              <Button
+                variant={grouped ? "default" : "secondary"}
+                size="sm"
+                onClick={() => setGrouped(!grouped)}
+              >
+                {grouped ? "Activado" : "Desactivado"}
+              </Button>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Mostrar símbolo +</span>
-              <Button variant={showPlus ? "default" : "secondary"} size="sm" onClick={() => setShowPlus(!showPlus)}>{showPlus ? "Sí" : "No"}</Button>
+              <Button
+                variant={showPlus ? "default" : "secondary"}
+                size="sm"
+                onClick={() => setShowPlus(!showPlus)}
+              >
+                {showPlus ? "Sí" : "No"}
+              </Button>
             </div>
           </div>
         </div>
@@ -99,7 +125,9 @@ export default function KbdExample() {
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Código generado</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Código generado
+          </h2>
           <Button
             variant="secondary"
             size="sm"
