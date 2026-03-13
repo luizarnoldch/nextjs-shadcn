@@ -5,18 +5,18 @@ import s3Client from "@/lib/minio";
 import prisma from "@/lib/prisma";
 import config from "@/lib/config";
 
-const nodeEnv = process.env.NODE_ENV || "development";
+// const nodeEnv = process.env.NODE_ENV || "development";
 
-// Logic matching Next.js environment variable priority
-if (nodeEnv === "production") {
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.production") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
-} else {
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.development.local") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.local") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.development") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
-}
+// // Logic matching Next.js environment variable priority
+// if (nodeEnv === "production") {
+//   dotenvConfig({ path: path.resolve(process.cwd(), ".env.production") });
+//   dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
+// } else {
+//   dotenvConfig({ path: path.resolve(process.cwd(), ".env.development.local") });
+//   dotenvConfig({ path: path.resolve(process.cwd(), ".env.local") });
+//   dotenvConfig({ path: path.resolve(process.cwd(), ".env.development") });
+//   dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
+// }
 
 async function insertPublicAssets(bucketName: string) {
   try {

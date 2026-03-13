@@ -14,14 +14,14 @@ type useUpdateFileProps = {
   onSettled?: () => void;
 };
 
-const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpdateFileProps) => {
+const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpdateFileProps = {}) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const mutation = useMutation(trpc.file.update.mutationOptions({
     onSuccess: async (data, variables) => {
       await queryClient.invalidateQueries(trpc.file.list.queryOptions());
       onSuccess?.();
-      form.reset();
+      form.reset(data as UpdateFileType);
       toast.success("File updated successfully");
     },
     onError: (error, variables) => {
@@ -39,7 +39,7 @@ const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpd
 
   const form = useForm({
     defaultValues: {
-      id: file?.id || "",
+      id: file?.id,
       name: file?.name,
       type: file?.type,
       size: file?.size,

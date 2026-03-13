@@ -7,6 +7,7 @@ import {
 } from "../schema/file.schema";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { FileState, FileVisibility } from "@/generated/prisma/enums";
+import { sanitizeFileName } from "@/lib/utils";
 
 export const fileRouter = createTRPCRouter({
   list: baseProcedure.query(async ({ ctx }) => {
@@ -14,6 +15,7 @@ export const fileRouter = createTRPCRouter({
       return await ctx.prisma.file.findMany({
         where: {
           deletedAt: null,
+          // state: FileState.UPLOADED,
         },
         orderBy: {
           uploadedAt: "desc",
@@ -32,14 +34,12 @@ export const fileRouter = createTRPCRouter({
       const file = await ctx.prisma.file.findUnique({
         where: { id: input.id },
       });
-
       if (!file) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "File not found",
         });
       }
-
       return file;
     } catch (error) {
       if (error instanceof TRPCError) throw error;
@@ -55,19 +55,18 @@ export const fileRouter = createTRPCRouter({
       const file = await ctx.prisma.file.create({
         data: {
           ...input,
+          name: sanitizeFileName(input.name),
           state: FileState.PENDING,
           visibility: FileVisibility.PUBLIC,
           uploadedAt: new Date(),
         },
       });
-      const key = `file/${file.id}/${file.name}.${file.type}`;
-      const presignedUrl = await ctx.s3Client.presignedPutObject(ctx.config.minio.bucketName, key, 60 * 5);
-
+      const key = `file/${file.id}.${input.type.split("/").pop()}`;
       const updatedFile = await ctx.prisma.file.update({
         where: { id: file.id },
         data: { key },
       });
-
+      const presignedUrl = await ctx.s3Client.presignedPutObject(ctx.config.minio.bucketName, key, 60 * 5);
       return { ...updatedFile, presignedUrl };
     } catch (error) {
       throw new TRPCError({
@@ -80,9 +79,17 @@ export const fileRouter = createTRPCRouter({
   update: baseProcedure.input(updateFileSchema).mutation(async ({ input, ctx }) => {
     try {
       const { id, ...data } = input;
+
+      const currentData: any = { ...data };
+
+      if (data.visibility === FileVisibility.PUBLIC && data.key) {
+        const { bucketName, serverUrl, port } = ctx.config.minio
+        currentData.url = `http://${serverUrl}:${port}/${bucketName}/${data.key}`
+      }
+
       return await ctx.prisma.file.update({
         where: { id },
-        data,
+        data: currentData,
       });
     } catch (error) {
       throw new TRPCError({

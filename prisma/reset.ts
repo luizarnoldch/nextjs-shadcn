@@ -1,21 +1,5 @@
-import { config as dotenvConfig } from "dotenv";
-import path from "node:path";
 import s3Client from "@/lib/minio";
-import polarClient from "@/lib/polar";
 import prisma from "@/lib/prisma";
-
-const nodeEnv = process.env.NODE_ENV || "development";
-
-// Logic matching Next.js environment variable priority
-if (nodeEnv === "production") {
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.production") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
-} else {
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.development.local") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.local") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.development") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
-}
 
 async function cleanBuckets() {
   try {
@@ -43,34 +27,34 @@ async function cleanBuckets() {
   }
 }
 
-async function cleanPolarUsers() {
-  try {
-    let hasMore = true;
-    let page = 1;
-    while (hasMore) {
-      const response = await polarClient.customers.list({
-        limit: 100,
-        page,
-      });
-      const customers = response.result.items;
-      if (customers.length === 0) {
-        hasMore = false;
-        console.log("No more customers found.");
-        break;
-      }
-      for (const customer of customers) {
-        console.log(`Deleting customer: ${customer.email} (${customer.id})`);
-        await polarClient.customers.delete({
-          id: customer.id,
-        });
-      }
-      page++;
-    }
-    console.log("Polar user cleanup completed.");
-  } catch (error) {
-    console.error("Error running seed script:", error);
-  }
-}
+// async function cleanPolarUsers() {
+//   try {
+//     let hasMore = true;
+//     let page = 1;
+//     while (hasMore) {
+//       const response = await polarClient.customers.list({
+//         limit: 100,
+//         page,
+//       });
+//       const customers = response.result.items;
+//       if (customers.length === 0) {
+//         hasMore = false;
+//         console.log("No more customers found.");
+//         break;
+//       }
+//       for (const customer of customers) {
+//         console.log(`Deleting customer: ${customer.email} (${customer.id})`);
+//         await polarClient.customers.delete({
+//           id: customer.id,
+//         });
+//       }
+//       page++;
+//     }
+//     console.log("Polar user cleanup completed.");
+//   } catch (error) {
+//     console.error("Error running seed script:", error);
+//   }
+// }
 
 async function cleanDatabase() {
   try {
@@ -102,7 +86,7 @@ async function main() {
   }
 
   await cleanBuckets();
-  await cleanPolarUsers();
+  // await cleanPolarUsers();
   await cleanDatabase();
 }
 

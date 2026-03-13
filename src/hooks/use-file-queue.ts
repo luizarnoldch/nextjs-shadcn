@@ -12,13 +12,14 @@ export type LocalFile = {
   id: string;
   file: File;
   previewUrl: string;
+  presignedUrl: string;
 };
 
 export type QueuedFile = RemoteFile | LocalFile;
 
 export interface UseFileQueueProps {
   initialFiles?: Omit<RemoteFile, "type">[];
-  onDeleteRemoteFile?: (id: string) => Promise<void> | void;
+  onDeleteFile?: (id: string) => Promise<void> | void;
 }
 
 export function useFileQueue(props?: UseFileQueueProps) {
@@ -27,45 +28,80 @@ export function useFileQueue(props?: UseFileQueueProps) {
   });
   const [isDeleting, setIsDeleting] = useState<Record<string, boolean>>({});
 
-  const addLocalFiles = useCallback((files: File[]) => {
-    const newLocalFiles: LocalFile[] = files.map((file) => ({
+  const setRemoteFiles = useCallback((files: Omit<RemoteFile, "type">[]) => {
+    setQueue((prev) => {
+      const localFiles = prev.filter((f) => f.type === "local");
+      const newRemoteFiles = files.map((f) => ({ ...f, type: "remote" as const }));
+      return [...newRemoteFiles, ...localFiles];
+    });
+  }, []);
+
+
+  
+  const addLocalFile = useCallback((file: File, id: string, presignedUrl: string) => {
+    const newLocalFile: LocalFile = {
       type: "local",
-      id: Math.random().toString(36).substring(7) + Date.now().toString(36),
+      id,
       file,
       previewUrl: URL.createObjectURL(file), // create local preview
-    }));
+      presignedUrl,
+    };
 
-    setQueue((prev) => [...prev, ...newLocalFiles]);
+    setQueue((prev) => [...prev, newLocalFile]);
   }, []);
+
+  const uploadFiles = useCallback(async () => {
+    const localFiles = queue.filter((f): f is LocalFile => f.type === "local");
+    
+    const uploadPromises = localFiles.map(async (localFile) => {
+      try {
+        const response = await fetch(localFile.presignedUrl, {
+          method: "PUT",
+          body: localFile.file,
+          headers: {
+            "Content-Type": localFile.file.type || "application/octet-stream",
+          },
+        });
+        
+        if (!response.ok) {
+           throw new Error(`Failed to upload file: ${localFile.file.name}`);
+        }
+        
+        return { success: true, id: localFile.id };
+      } catch (error) {
+        console.error("Upload error", error);
+        return { success: false, id: localFile.id, error };
+      }
+    });
+
+    return await Promise.all(uploadPromises);
+  }, [queue]);
 
   const removeFile = useCallback(
     async (id: string) => {
       const fileToRemove = queue.find((f) => f.id === id);
       if (!fileToRemove) return;
 
-      if (fileToRemove.type === "remote") {
-        if (props?.onDeleteRemoteFile) {
-          setIsDeleting((prev) => ({ ...prev, [id]: true }));
-          try {
-            await props.onDeleteRemoteFile(id);
-            setQueue((prev) => prev.filter((f) => f.id !== id));
-          } catch (error) {
-            console.error("Failed to delete remote file", error);
-            // Optionally handle error state
-          } finally {
-            setIsDeleting((prev) => ({ ...prev, [id]: false }));
-          }
-        } else {
-          // If no callback, simply remove it
-          setQueue((prev) => prev.filter((f) => f.id !== id));
+      if (props?.onDeleteFile) {
+        setIsDeleting((prev) => ({ ...prev, [id]: true }));
+        try {
+          await props.onDeleteFile(id);
+        } catch (error) {
+          console.error("Failed to delete file", error);
+          setIsDeleting((prev) => ({ ...prev, [id]: false }));
+          return; // Abort removing from queue if delete fails
+        } finally {
+          setIsDeleting((prev) => ({ ...prev, [id]: false }));
         }
-      } else {
-        // Revoke object URL to avoid memory leaks
-        URL.revokeObjectURL(fileToRemove.previewUrl);
-        setQueue((prev) => prev.filter((f) => f.id !== id));
       }
+
+      // If successful or if no onDeleteFile provided
+      if (fileToRemove.type === "local") {
+        URL.revokeObjectURL(fileToRemove.previewUrl);
+      }
+      setQueue((prev) => prev.filter((f) => f.id !== id));
     },
-    [queue, props?.onDeleteRemoteFile]
+    [queue, props?.onDeleteFile]
   );
 
   const clearQueue = useCallback(() => {
@@ -93,9 +129,11 @@ export function useFileQueue(props?: UseFileQueueProps) {
 
   return {
     queue,
-    addLocalFiles,
+    addLocalFile,
+    setRemoteFiles,
     removeFile,
     clearQueue,
+    uploadFiles,
     isDeleting,
   };
 }

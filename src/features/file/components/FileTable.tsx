@@ -5,6 +5,8 @@ import useDeleteFile from "../hooks/useDeleteFile";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
+import Image from "next/image";
+import { File as FileIcon } from "lucide-react";
 
 export default function FileTable() {
   const { data: files } = useSuspenseListFiles();
@@ -21,6 +23,7 @@ export default function FileTable() {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Image</TableHead>
             <TableHead>File Name</TableHead>
             <TableHead>Type</TableHead>
             <TableHead>Size (bytes)</TableHead>
@@ -39,9 +42,24 @@ export default function FileTable() {
           ) : (
             files.map((file) => (
               <TableRow key={file.id}>
-                <TableCell className="font-medium">{file.fileName}</TableCell>
-                <TableCell>{file.fileType}</TableCell>
-                <TableCell>{file.fileSize}</TableCell>
+                <TableCell>
+                  {file.url ? (
+                    <Image
+                      src={file.url}
+                      alt={file.name}
+                      width={100}
+                      height={100}
+                      className="rounded-md object-cover"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center w-10 h-10 rounded-md bg-muted">
+                      <FileIcon className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                  )}
+                </TableCell>
+                <TableCell className="font-medium">{file.name}</TableCell>
+                <TableCell>{file.type}</TableCell>
+                <TableCell>{file.size}</TableCell>
                 <TableCell>{file.state}</TableCell>
                 <TableCell>{format(new Date(file.uploadedAt), "MMM d, yyyy")}</TableCell>
                 <TableCell className="text-right">

@@ -1,20 +1,4 @@
-import { config as dotenvConfig } from "dotenv";
-import path from "node:path";
 import z from "zod";
-
-const nodeEnv = process.env.NODE_ENV || "development";
-
-// Logic matching Next.js environment variable priority (first loaded wins in dotenv)
-if (nodeEnv === "production") {
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.production") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
-} else {
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.development.local") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.local") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env.development") });
-  dotenvConfig({ path: path.resolve(process.cwd(), ".env") });
-}
-
 
 const envSchema = z.object({
   // Database
