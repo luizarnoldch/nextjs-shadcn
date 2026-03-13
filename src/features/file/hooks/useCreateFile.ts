@@ -17,9 +17,13 @@ type useCreateFileProps = {
 const useCreateFile = ({ onSuccess, onError, onMutate, onSettled }: useCreateFileProps = {}) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+
+  const revalidateFileList = () => {
+    queryClient.invalidateQueries(trpc.file.list.queryOptions());
+  }
+
   const mutation = useMutation(trpc.file.create.mutationOptions({
     onSuccess: async () => {
-      await queryClient.invalidateQueries(trpc.file.list.queryOptions());
       onSuccess?.();
       form.reset();
       toast.success("File created successfully");
@@ -56,8 +60,9 @@ const useCreateFile = ({ onSuccess, onError, onMutate, onSettled }: useCreateFil
   });
 
   return {
-    form,
     ...mutation,
+    form,
+    revalidateFileList,
   };
 };
 

@@ -4,14 +4,14 @@ import { useCallback } from "react";
 import { UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDropzone } from "react-dropzone";
-import { useStoreAddFilesToQueue } from "../../stores/file.store";
 import useCreateFile from "../../hooks/useCreateFile";
 import { FileState, FileVisibility } from "@/generated/prisma/enums";
+import { useStoreAddFilesToQueue } from "../../stores/file.store";
 
 type Props = {
 };
 
-export const FileDropZoneArea = ({ }: Props) => {
+const FileDropZoneArea = ({ }: Props) => {
   const addFilesToQueue = useStoreAddFilesToQueue();
   const { mutateAsync: createFile } = useCreateFile();
 
@@ -28,14 +28,11 @@ export const FileDropZoneArea = ({ }: Props) => {
           });
 
           return {
-            id: newFile.id,
-            name: file.name,
-            type: file.type,
-            size: file.size,
-            file,
+            ...newFile,
             origin: "local" as const,
-            key: newFile.key,
-            presignURL: newFile.presignedUrl,
+            file,
+            url: newFile.url || "",
+            presignURL: newFile.presignedUrl || "",
           };
         })
       );
@@ -66,3 +63,5 @@ export const FileDropZoneArea = ({ }: Props) => {
     </div>
   );
 };
+
+export default FileDropZoneArea;

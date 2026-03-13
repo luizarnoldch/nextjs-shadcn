@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { X, File as FileIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FileItem, useStoreRemoveFileFromQueue } from "../../stores/file.store";
@@ -13,13 +12,19 @@ type Props = {
 
 export const FileDropZoneQueueItem = ({ file }: Props) => {
   const removeFileFromQueue = useStoreRemoveFileFromQueue();
-  const { mutateAsync: deleteFile } = useDeleteFile();
+  const { mutateAsync: deleteFile, revalidateFileList } = useDeleteFile({
+    onSuccess: () => {
+      revalidateFileList();
+    },
+  });
+
+  const previewSrc = file.url || (file.file ? URL.createObjectURL(file.file) : null);
 
   return (
     <div className="relative shrink-0 w-32 h-32 rounded-lg border bg-muted/30 overflow-hidden group shadow-sm flex items-center justify-center">
-      {file.url ? (
+      {previewSrc ? (
         <Image
-          src={file.url}
+          src={previewSrc}
           alt={file.name}
           width={100}
           height={100}

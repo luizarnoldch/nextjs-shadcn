@@ -3,8 +3,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import HydrateFiles from "../hooks/HydrateFiles";
 import FileLayout from "./FileLayout";
 import FileTable from "../components/FileTable";
-import FileForm from "../components/FileForm";
+// import FileForm from "../components/FileForm";
 import FileDropZone from "../components/FileDropZone";
+import { Separator } from "@/components/ui/separator";
 
 export default function FileView() {
   return (
@@ -17,15 +18,12 @@ export default function FileView() {
             </Suspense>
           </ErrorBoundary>
 
-          <ErrorBoundary fallback={<div>Error loading form</div>}>
-            <FileForm />
-          </ErrorBoundary>
-
           <ErrorBoundary fallback={<div>Error loading drop zone</div>}>
             <Suspense fallback={<div>Loading drop zone...</div>}>
               <FileDropZone />
             </Suspense>
           </ErrorBoundary>
+
         </div>
       </FileLayout>
     </HydrateFiles>

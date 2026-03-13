@@ -15,10 +15,10 @@ export const fileRouter = createTRPCRouter({
       return await ctx.prisma.file.findMany({
         where: {
           deletedAt: null,
-          // state: FileState.UPLOADED,
+          state: FileState.UPLOADED,
         },
         orderBy: {
-          uploadedAt: "desc",
+          uploadedAt: "asc",
         },
       });
     } catch (error) {

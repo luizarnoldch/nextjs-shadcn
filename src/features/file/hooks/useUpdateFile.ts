@@ -17,9 +17,13 @@ type useUpdateFileProps = {
 const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpdateFileProps = {}) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+
+  const revalidateFileList = () => {
+    queryClient.invalidateQueries(trpc.file.list.queryOptions());
+  }
+
   const mutation = useMutation(trpc.file.update.mutationOptions({
     onSuccess: async (data, variables) => {
-      await queryClient.invalidateQueries(trpc.file.list.queryOptions());
       onSuccess?.();
       form.reset(data as UpdateFileType);
       toast.success("File updated successfully");
@@ -57,8 +61,9 @@ const useUpdateFile = ({ file, onSuccess, onError, onMutate, onSettled }: useUpd
   });
 
   return {
-    form,
     ...mutation,
+    form,
+    revalidateFileList,
   };
 };
 

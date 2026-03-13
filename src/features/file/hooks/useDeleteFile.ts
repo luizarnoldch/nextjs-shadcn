@@ -14,9 +14,13 @@ type useDeleteFileProps = {
 const useDeleteFile = ({ onSuccess, onError, onMutate, onSettled }: useDeleteFileProps = {}) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+
+  const revalidateFileList = () => {
+    queryClient.invalidateQueries(trpc.file.list.queryOptions());
+  }
+
   const mutation = useMutation(trpc.file.delete.mutationOptions({
     onSuccess: async () => {
-      await queryClient.invalidateQueries(trpc.file.list.queryOptions());
       onSuccess?.();
       toast.success("File deleted successfully");
     },
@@ -33,7 +37,10 @@ const useDeleteFile = ({ onSuccess, onError, onMutate, onSettled }: useDeleteFil
     },
   }));
 
-  return mutation;
+  return {
+    ...mutation,
+    revalidateFileList,
+  };
 };
 
 export default useDeleteFile;
