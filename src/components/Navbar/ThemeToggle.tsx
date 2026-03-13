@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import * as React from "react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '../ui/button';
+} from "@/components/ui/dropdown-menu";
+import { Button } from "../ui/button";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
@@ -27,10 +27,16 @@ export function ThemeToggle() {
           <Moon className="h-6 w-6 hidden dark:block" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className='bg-primary-foreground'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
+      <DropdownMenuContent align="end" className="bg-primary-foreground">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -20,7 +20,7 @@ import {
   Settings,
   Smile,
   User,
-  Search
+  Search,
 } from "lucide-react";
 
 export default function CommandDemoPage() {
@@ -56,14 +56,20 @@ export default function CommandDemoPage() {
     if (asDialog) {
       parts.push(`    <>`);
       parts.push(`      <p className="text-sm text-muted-foreground">`);
-      parts.push(`        Press <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100"><span className="text-xs">⌘</span>J</kbd>`);
+      parts.push(
+        `        Press <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100"><span className="text-xs">⌘</span>J</kbd>`,
+      );
       parts.push(`      </p>`);
       parts.push(`      <CommandDialog open={open} onOpenChange={setOpen}>`);
     } else {
-      parts.push(`    <Command className="rounded-lg border shadow-md md:min-w-[450px]">`);
+      parts.push(
+        `    <Command className="rounded-lg border shadow-md md:min-w-[450px]">`,
+      );
     }
 
-    parts.push(`      <CommandInput placeholder="Type a command or search..." />`);
+    parts.push(
+      `      <CommandInput placeholder="Type a command or search..." />`,
+    );
     parts.push(`      <CommandList>`);
     parts.push(`        <CommandEmpty>No results found.</CommandEmpty>`);
     parts.push(`        <CommandGroup heading="Suggestions">`);
@@ -89,17 +95,20 @@ export default function CommandDemoPage() {
     parts.push(`          <CommandItem>`);
     parts.push(`            <User />`);
     parts.push(`            <span>Profile</span>`);
-    if (showShortcuts) parts.push(`            <CommandShortcut>⌘P</CommandShortcut>`);
+    if (showShortcuts)
+      parts.push(`            <CommandShortcut>⌘P</CommandShortcut>`);
     parts.push(`          </CommandItem>`);
     parts.push(`          <CommandItem>`);
     parts.push(`            <CreditCard />`);
     parts.push(`            <span>Billing</span>`);
-    if (showShortcuts) parts.push(`            <CommandShortcut>⌘B</CommandShortcut>`);
+    if (showShortcuts)
+      parts.push(`            <CommandShortcut>⌘B</CommandShortcut>`);
     parts.push(`          </CommandItem>`);
     parts.push(`          <CommandItem>`);
     parts.push(`            <Settings />`);
     parts.push(`            <span>Settings</span>`);
-    if (showShortcuts) parts.push(`            <CommandShortcut>⌘S</CommandShortcut>`);
+    if (showShortcuts)
+      parts.push(`            <CommandShortcut>⌘S</CommandShortcut>`);
     parts.push(`          </CommandItem>`);
     parts.push(`        </CommandGroup>`);
     parts.push(`      </CommandList>`);
@@ -114,7 +123,8 @@ export default function CommandDemoPage() {
     const innerJSX = parts.join("\n");
     const modeImports = asDialog ? "CommandDialog,\n  " : "";
 
-    const stateCode = asDialog ? `\n  const [open, setOpen] = React.useState(false)
+    const stateCode = asDialog
+      ? `\n  const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -126,7 +136,8 @@ export default function CommandDemoPage() {
 
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
-  }, [])\n` : "";
+  }, [])\n`
+      : "";
 
     return `import * as React from "react"
 import {
@@ -157,38 +168,89 @@ ${innerJSX}
   };
 
   // prettier-ignore
-  const rawCodeContent = generateCode()
+  const rawCodeContent = generateCode();
 
   // prettier-ignore
   const highlightedCode = generateCode()
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
     .replace(/const/g, `<span class="${hlKw}">const</span>`)
     .replace(/if \(/g, `<span class="${hlKw}">if</span> (`)
     // Tags
-    .replace(/&lt;(\/?)Command([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Command$2</span>$3&gt;`)
-    .replace(/&lt;(\/?)Calculator(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Calculator</span>$2&gt;`)
-    .replace(/&lt;(\/?)Calendar(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Calendar</span>$2&gt;`)
-    .replace(/&lt;(\/?)CreditCard(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">CreditCard</span>$2&gt;`)
-    .replace(/&lt;(\/?)Settings(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Settings</span>$2&gt;`)
-    .replace(/&lt;(\/?)Smile(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Smile</span>$2&gt;`)
-    .replace(/&lt;(\/?)User(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">User</span>$2&gt;`)
-    .replace(/&lt;(\/?)span(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">span</span>$2&gt;`)
-    .replace(/&lt;(\/?)kbd(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">kbd</span>$2&gt;`)
-    .replace(/&lt;(\/?)p(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">p</span>$2&gt;`)
+    .replace(
+      /&lt;(\/?)Command([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Command$2</span>$3&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Calculator(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Calculator</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Calendar(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Calendar</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)CreditCard(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">CreditCard</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Settings(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Settings</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Smile(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Smile</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)User(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">User</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)span(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">span</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)kbd(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">kbd</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)p(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">p</span>$2&gt;`,
+    )
     // Attributes
-    .replace(/ placeholder="([^"]+)"/g, ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ heading="([^"]+)"/g, ` <span class="${hlProp}">heading</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
+    .replace(
+      / placeholder="([^"]+)"/g,
+      ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / heading="([^"]+)"/g,
+      ` <span class="${hlProp}">heading</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
     .replace(/ disabled/g, ` <span class="${hlProp}">disabled</span>`)
     // React state and hooks
-    .replace(/React\.useEffect/g, `<span class="${hlVal}">React.useEffect</span>`)
+    .replace(
+      /React\.useEffect/g,
+      `<span class="${hlVal}">React.useEffect</span>`,
+    )
     .replace(/React\.useState/g, `<span class="${hlVal}">React.useState</span>`)
-    .replace(/ open=\{([^}]+)\}/g, ` <span class="${hlProp}">open</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ onOpenChange=\{([^}]+)\}/g, ` <span class="${hlProp}">onOpenChange</span>={<span class="${hlVal}">$1</span>}`);
+    .replace(
+      / open=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">open</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / onOpenChange=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">onOpenChange</span>={<span class="${hlVal}">$1</span>}`,
+    );
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -202,15 +264,21 @@ ${innerJSX}
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full xl:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Options</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Options
+            </h3>
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">As Dialog</span>
-                <span className="text-xs text-muted-foreground">Render in a modal overlay</span>
+                <span className="text-xs text-muted-foreground">
+                  Render in a modal overlay
+                </span>
               </div>
               <Button
                 variant={asDialog ? "default" : "secondary"}
@@ -224,7 +292,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Show Separators</span>
-                <span className="text-xs text-muted-foreground">Dividers between groups</span>
+                <span className="text-xs text-muted-foreground">
+                  Dividers between groups
+                </span>
               </div>
               <Button
                 variant={showSeparators ? "default" : "secondary"}
@@ -238,7 +308,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Show Shortcuts</span>
-                <span className="text-xs text-muted-foreground">Trailing keybind hints</span>
+                <span className="text-xs text-muted-foreground">
+                  Trailing keybind hints
+                </span>
               </div>
               <Button
                 variant={showShortcuts ? "default" : "secondary"}
@@ -262,8 +334,8 @@ ${innerJSX}
                   Press{" "}
                   <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
                     <span className="text-xs">⌘</span>J
-                  </kbd>
-                  {" "}to open the command menu
+                  </kbd>{" "}
+                  to open the command menu
                 </p>
                 <div className="mt-4">
                   <Button variant="outline" onClick={() => setOpen(true)}>
@@ -355,7 +427,9 @@ ${innerJSX}
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

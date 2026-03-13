@@ -10,14 +10,20 @@ function ExampleContent() {
   const dir = useDirection();
 
   return (
-    <div dir={dir} className="flex gap-4 p-6 border rounded-lg bg-background text-foreground shadow-sm max-w-sm w-full transition-all">
+    <div
+      dir={dir}
+      className="flex gap-4 p-6 border rounded-lg bg-background text-foreground shadow-sm max-w-sm w-full transition-all"
+    >
       <div className="bg-primary/10 p-3 rounded-full h-fit shrink-0">
         <ArrowRightLeft className="size-5 text-primary" />
       </div>
       <div className="flex flex-col gap-1.5">
         <p className="font-medium leading-none">Reading Context Flow</p>
         <p className="text-sm text-muted-foreground leading-snug">
-          The <code>useDirection()</code> hook returned <strong className="text-foreground">{dir}</strong>. Notice how the flex-layout and text alignment automatically reflow inside this container.
+          The <code>useDirection()</code> hook returned{" "}
+          <strong className="text-foreground">{dir}</strong>. Notice how the
+          flex-layout and text alignment automatically reflow inside this
+          container.
         </p>
       </div>
     </div>
@@ -79,20 +85,47 @@ ${innerJSX}
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/function/g, `<span class="${hlKw}">function</span>`)
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
     .replace(/const/g, `<span class="${hlKw}">const</span>`)
     // Tags
-    .replace(/&lt;(\/?)DirectionProvider(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">DirectionProvider</span>$2&gt;`)
-    .replace(/&lt;(\/?)ExampleContent(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">ExampleContent</span>$2&gt;`)
-    .replace(/&lt;(\/?)div(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">div</span>$2&gt;`)
-    .replace(/&lt;(\/?)p(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">p</span>$2&gt;`)
-    .replace(/&lt;(\/?)strong(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">strong</span>$2&gt;`)
-    .replace(/&lt;(\/?)ArrowLeftRight(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">ArrowLeftRight</span>$2&gt;`)
+    .replace(
+      /&lt;(\/?)DirectionProvider(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">DirectionProvider</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)ExampleContent(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">ExampleContent</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)div(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">div</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)p(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">p</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)strong(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">strong</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)ArrowLeftRight(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">ArrowLeftRight</span>$2&gt;`,
+    )
     // Attributes
-    .replace(/ direction="([^"]+)"/g, ` <span class="${hlProp}">direction</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
+    .replace(
+      / direction="([^"]+)"/g,
+      ` <span class="${hlProp}">direction</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
     // React Hook
     .replace(/useDirection/g, `<span class="${hlVal}">useDirection</span>`);
 
@@ -101,22 +134,29 @@ ${innerJSX}
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Direction</h1>
         <p className="text-muted-foreground">
-          A context provider for RTL/LTR orientation, passing down direction intent to all Radix primitives globally.
+          A context provider for RTL/LTR orientation, passing down direction
+          intent to all Radix primitives globally.
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full lg:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-md font-medium text-muted-foreground">Context Value</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Context Value
+            </h3>
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Text Direction</span>
-                <span className="text-xs text-muted-foreground">LTR vs RTL broadcast</span>
+                <span className="text-xs text-muted-foreground">
+                  LTR vs RTL broadcast
+                </span>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -135,7 +175,6 @@ ${innerJSX}
                 </Button>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -154,7 +193,9 @@ ${innerJSX}
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

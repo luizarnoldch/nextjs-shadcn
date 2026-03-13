@@ -1,9 +1,12 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const MetricHero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/bg-hero.png')" }}>
+    <section
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/images/bg-hero.png')" }}
+    >
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between p-6">
         <div className="text-left max-w-lg">
           <h1 className="text-4xl md:text-6xl font-bold text-white">

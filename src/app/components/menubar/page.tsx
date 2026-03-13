@@ -42,7 +42,8 @@ export default function MenubarDemoPage() {
     ];
     if (showCheckbox) imports.push("MenubarCheckboxItem");
     if (showRadio) imports.push("MenubarRadioGroup", "MenubarRadioItem");
-    if (showSubmenu) imports.push("MenubarSub", "MenubarSubTrigger", "MenubarSubContent");
+    if (showSubmenu)
+      imports.push("MenubarSub", "MenubarSubTrigger", "MenubarSubContent");
     const importStr = `import { ${imports.join(", ")} } from "@/components/ui/menubar"`;
 
     let menuItems = `      <MenubarItem>Nuevo <MenubarShortcut>Ctrl+N</MenubarShortcut></MenubarItem>\n      <MenubarItem>Guardar <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>`;
@@ -83,22 +84,67 @@ export default function MenubarExample() {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, '<span class="text-pink-400">import</span>')
-    .replace(/export default function/g, '<span class="text-pink-400">export default function</span>')
+    .replace(
+      /export default function/g,
+      '<span class="text-pink-400">export default function</span>',
+    )
     .replace(/return/g, '<span class="text-pink-400">return</span>')
-    .replace(/&lt;(\/?)Menubar(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">Menubar</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarMenu(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarMenu</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarTrigger(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarTrigger</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarContent(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarContent</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarItem(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarItem</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarSeparator(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarSeparator</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarLabel(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarLabel</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarShortcut(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarShortcut</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarCheckboxItem(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarCheckboxItem</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarRadioGroup(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarRadioGroup</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarRadioItem(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarRadioItem</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarSub(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarSub</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarSubTrigger(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarSubTrigger</span>$2&gt;')
-    .replace(/&lt;(\/?)MenubarSubContent(.*?)&gt;/g, '&lt;$1<span class="text-emerald-400">MenubarSubContent</span>$2&gt;');
+    .replace(
+      /&lt;(\/?)Menubar(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">Menubar</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarMenu(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarMenu</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarTrigger(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarTrigger</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarContent(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarContent</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarItem(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarItem</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarSeparator(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarSeparator</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarLabel(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarLabel</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarShortcut(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarShortcut</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarCheckboxItem(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarCheckboxItem</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarRadioGroup(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarRadioGroup</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarRadioItem(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarRadioItem</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarSub(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarSub</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarSubTrigger(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarSubTrigger</span>$2&gt;',
+    )
+    .replace(
+      /&lt;(\/?)MenubarSubContent(.*?)&gt;/g,
+      '&lt;$1<span class="text-emerald-400">MenubarSubContent</span>$2&gt;',
+    );
 
   // Renderizado
   return (
@@ -106,27 +152,48 @@ export default function MenubarExample() {
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Menubar</h1>
         <p className="text-muted-foreground">
-          Componente para mostrar menús tipo barra de herramientas. Prueba las variaciones y copia el código generado.
+          Componente para mostrar menús tipo barra de herramientas. Prueba las
+          variaciones y copia el código generado.
         </p>
       </div>
 
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controles */}
         <div className="flex flex-col gap-6 w-full xl:w-100 p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuración</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuración
+          </h2>
 
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Checkbox</span>
-              <Button variant={showCheckbox ? "default" : "secondary"} size="sm" onClick={() => setShowCheckbox(!showCheckbox)}>{showCheckbox ? "Activado" : "Desactivado"}</Button>
+              <Button
+                variant={showCheckbox ? "default" : "secondary"}
+                size="sm"
+                onClick={() => setShowCheckbox(!showCheckbox)}
+              >
+                {showCheckbox ? "Activado" : "Desactivado"}
+              </Button>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Radio</span>
-              <Button variant={showRadio ? "default" : "secondary"} size="sm" onClick={() => setShowRadio(!showRadio)}>{showRadio ? "Activado" : "Desactivado"}</Button>
+              <Button
+                variant={showRadio ? "default" : "secondary"}
+                size="sm"
+                onClick={() => setShowRadio(!showRadio)}
+              >
+                {showRadio ? "Activado" : "Desactivado"}
+              </Button>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Submenú</span>
-              <Button variant={showSubmenu ? "default" : "secondary"} size="sm" onClick={() => setShowSubmenu(!showSubmenu)}>{showSubmenu ? "Activado" : "Desactivado"}</Button>
+              <Button
+                variant={showSubmenu ? "default" : "secondary"}
+                size="sm"
+                onClick={() => setShowSubmenu(!showSubmenu)}
+              >
+                {showSubmenu ? "Activado" : "Desactivado"}
+              </Button>
             </div>
           </div>
         </div>
@@ -141,15 +208,31 @@ export default function MenubarExample() {
                 <MenubarContent>
                   <MenubarLabel>Acciones</MenubarLabel>
                   <MenubarSeparator />
-                  <MenubarItem>Nuevo <MenubarShortcut>Ctrl+N</MenubarShortcut></MenubarItem>
-                  <MenubarItem>Guardar <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>
+                  <MenubarItem>
+                    Nuevo <MenubarShortcut>Ctrl+N</MenubarShortcut>
+                  </MenubarItem>
+                  <MenubarItem>
+                    Guardar <MenubarShortcut>Ctrl+S</MenubarShortcut>
+                  </MenubarItem>
                   {showCheckbox && (
-                    <MenubarCheckboxItem checked={checked} onCheckedChange={setChecked}>Mostrar barra</MenubarCheckboxItem>
+                    <MenubarCheckboxItem
+                      checked={checked}
+                      onCheckedChange={setChecked}
+                    >
+                      Mostrar barra
+                    </MenubarCheckboxItem>
                   )}
                   {showRadio && (
-                    <MenubarRadioGroup value={radioValue} onValueChange={setRadioValue}>
-                      <MenubarRadioItem value="option1">Opción 1</MenubarRadioItem>
-                      <MenubarRadioItem value="option2">Opción 2</MenubarRadioItem>
+                    <MenubarRadioGroup
+                      value={radioValue}
+                      onValueChange={setRadioValue}
+                    >
+                      <MenubarRadioItem value="option1">
+                        Opción 1
+                      </MenubarRadioItem>
+                      <MenubarRadioItem value="option2">
+                        Opción 2
+                      </MenubarRadioItem>
                     </MenubarRadioGroup>
                   )}
                   {showSubmenu && (
@@ -170,7 +253,9 @@ export default function MenubarExample() {
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Código generado</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Código generado
+          </h2>
           <Button
             variant="secondary"
             size="sm"

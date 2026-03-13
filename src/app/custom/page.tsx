@@ -1,20 +1,40 @@
-import Link from 'next/link';
+import Link from "next/link";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 const links = [
-  { href: '/custom/hero', label: 'Hero', description: 'Hero options demo.' },
-  { href: '/custom/feature', label: 'Feature', description: 'Feature Services for landing page.' },
-  { href: '/custom/carrousel', label: 'Carrousel', description: 'View the carrousel demo.' },
-  { href: '/custom/forms', label: 'Forms', description: 'Forms Library.' },
-  { href: '/custom/table', label: 'Table', description: 'Table example with data.' },
-  { href: '/custom/sidebar', label: 'Sidebar', description: 'Sidebar navigation example.' },
-  { href: '/custom/checkbox', label: 'Checkbox', description: 'Checkbox example with state.' },
+  { href: "/custom/hero", label: "Hero", description: "Hero options demo." },
+  {
+    href: "/custom/feature",
+    label: "Feature",
+    description: "Feature Services for landing page.",
+  },
+  {
+    href: "/custom/carrousel",
+    label: "Carrousel",
+    description: "View the carrousel demo.",
+  },
+  { href: "/custom/forms", label: "Forms", description: "Forms Library." },
+  {
+    href: "/custom/table",
+    label: "Table",
+    description: "Table example with data.",
+  },
+  {
+    href: "/custom/sidebar",
+    label: "Sidebar",
+    description: "Sidebar navigation example.",
+  },
+  {
+    href: "/custom/checkbox",
+    label: "Checkbox",
+    description: "Checkbox example with state.",
+  },
 ];
 
 export default function Home() {

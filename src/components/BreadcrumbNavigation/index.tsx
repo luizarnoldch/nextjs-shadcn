@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Breadcrumb,
@@ -7,16 +7,16 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Fragment } from 'react';
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 
 const BreadcrumbNavigation = () => {
   const pathname = usePathname();
-  const pathSegments = pathname.split('/').filter(Boolean);
+  const pathSegments = pathname.split("/").filter(Boolean);
   return (
-    <Breadcrumb className='container mx-auto py-2 px-6'>
+    <Breadcrumb className="container mx-auto py-2 px-6">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
@@ -24,7 +24,7 @@ const BreadcrumbNavigation = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
         {pathSegments.map((segment, index) => {
-          const href = '/' + pathSegments.slice(0, index + 1).join('/');
+          const href = "/" + pathSegments.slice(0, index + 1).join("/");
           const isLast = index === pathSegments.length - 1;
           return (
             <Fragment key={href}>

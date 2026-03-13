@@ -1,46 +1,44 @@
-'use client'
+"use client";
 
 // components/Filter.tsx
-import { FC, useState } from 'react'
-import Checkbox from './Checkbox'
-import ProductList from './ProductList'
+import { FC, useState } from "react";
+import Checkbox from "./Checkbox";
+import ProductList from "./ProductList";
 
 interface Product {
-  id: number
-  name: string
-  category: string
+  id: number;
+  name: string;
+  category: string;
 }
 
 interface FilterProps {
-  products: Product[]
+  products: Product[];
 }
 
 const Filter: FC<FilterProps> = ({ products }) => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const categories = Array.from(new Set(products.map((p) => p.category)))
-  const allSelected = selectedCategories.length === categories.length
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const categories = Array.from(new Set(products.map((p) => p.category)));
+  const allSelected = selectedCategories.length === categories.length;
 
   const toggleCategory = (category: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
-    )
-  }
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category],
+    );
+  };
 
   const toggleAll = () => {
-    setSelectedCategories(allSelected ? [] : categories)
-  }
+    setSelectedCategories(allSelected ? [] : categories);
+  };
 
   const filteredProducts = selectedCategories.length
     ? products.filter((p) => selectedCategories.includes(p.category))
-    : products
+    : products;
 
   return (
     <div className="space-y-4">
-      <Checkbox
-        label="Select All"
-        checked={allSelected}
-        onChange={toggleAll}
-      />
+      <Checkbox label="Select All" checked={allSelected} onChange={toggleAll} />
       {categories.map((category) => (
         <Checkbox
           key={category}
@@ -51,7 +49,7 @@ const Filter: FC<FilterProps> = ({ products }) => {
       ))}
       <ProductList products={filteredProducts} />
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

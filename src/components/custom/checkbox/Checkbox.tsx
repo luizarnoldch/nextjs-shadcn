@@ -1,11 +1,11 @@
 // components/Checkbox.tsx
-import { cn } from '@/lib/utils'
-import { FC } from 'react'
+import { cn } from "@/lib/utils";
+import { FC } from "react";
 
 interface CheckboxProps {
-  label: string
-  checked: boolean
-  onChange: (checked: boolean) => void
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
 }
 
 const Checkbox: FC<CheckboxProps> = ({ label, checked, onChange }) => {
@@ -15,11 +15,11 @@ const Checkbox: FC<CheckboxProps> = ({ label, checked, onChange }) => {
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className={cn('form-checkbox h-5 w-5 text-blue-600')}
+        className={cn("form-checkbox h-5 w-5 text-blue-600")}
       />
       <span>{label}</span>
     </label>
-  )
-}
+  );
+};
 
-export default Checkbox
+export default Checkbox;

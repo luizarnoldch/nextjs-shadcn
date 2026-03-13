@@ -12,7 +12,9 @@ import { Calendar } from "lucide-react";
 
 export default function HoverCardDemoPage() {
   const [align, setAlign] = useState<"start" | "center" | "end">("center");
-  const [side, setSide] = useState<"top" | "bottom" | "left" | "right">("bottom");
+  const [side, setSide] = useState<"top" | "bottom" | "left" | "right">(
+    "bottom",
+  );
   const [openDelay, setOpenDelay] = useState(700);
 
   // Syntax highlighting colors
@@ -35,20 +37,32 @@ export default function HoverCardDemoPage() {
     const alignStr = align !== "center" ? ` align="${align}"` : "";
     const sideStr = side !== "bottom" ? ` side="${side}"` : "";
 
-    parts.push(`      <HoverCardContent className="w-80"${alignStr}${sideStr}>`);
+    parts.push(
+      `      <HoverCardContent className="w-80"${alignStr}${sideStr}>`,
+    );
     parts.push(`        <div className="flex justify-between space-x-4">`);
     parts.push(`          <Avatar>`);
-    parts.push(`            <AvatarImage src="https://github.com/shadcn.png" />`);
+    parts.push(
+      `            <AvatarImage src="https://github.com/shadcn.png" />`,
+    );
     parts.push(`            <AvatarFallback>CN</AvatarFallback>`);
     parts.push(`          </Avatar>`);
     parts.push(`          <div className="space-y-1">`);
-    parts.push(`            <h4 className="text-sm font-semibold">@shadcn</h4>`);
+    parts.push(
+      `            <h4 className="text-sm font-semibold">@shadcn</h4>`,
+    );
     parts.push(`            <p className="text-sm">`);
-    parts.push(`              Beautifully designed components that you can copy and paste into your apps.`);
+    parts.push(
+      `              Beautifully designed components that you can copy and paste into your apps.`,
+    );
     parts.push(`            </p>`);
-    parts.push(`            <div className="flex items-center pt-2 text-muted-foreground">`);
+    parts.push(
+      `            <div className="flex items-center pt-2 text-muted-foreground">`,
+    );
     parts.push(`              <Calendar className="mr-2 size-4" />`);
-    parts.push(`              <span className="text-xs">Joined December 2021</span>`);
+    parts.push(
+      `              <span className="text-xs">Joined December 2021</span>`,
+    );
     parts.push(`            </div>`);
     parts.push(`          </div>`);
     parts.push(`        </div>`);
@@ -79,24 +93,69 @@ ${innerJSX}
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
     // Tags
-    .replace(/&lt;(\/?)HoverCard([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">HoverCard$2</span>$3&gt;`)
-    .replace(/&lt;(\/?)Button(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Button</span>$2&gt;`)
-    .replace(/&lt;(\/?)Avatar([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Avatar$2</span>$3&gt;`)
-    .replace(/&lt;(\/?)div(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">div</span>$2&gt;`)
-    .replace(/&lt;(\/?)span(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">span</span>$2&gt;`)
-    .replace(/&lt;(\/?)p(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">p</span>$2&gt;`)
-    .replace(/&lt;(\/?)h4(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">h4</span>$2&gt;`)
-    .replace(/&lt;(\/?)Calendar(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Calendar</span>$2&gt;`)
+    .replace(
+      /&lt;(\/?)HoverCard([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">HoverCard$2</span>$3&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Button(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Button</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Avatar([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Avatar$2</span>$3&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)div(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">div</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)span(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">span</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)p(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">p</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)h4(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">h4</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Calendar(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Calendar</span>$2&gt;`,
+    )
     // Attributes
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ src="([^"]+)"/g, ` <span class="${hlProp}">src</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ variant="([^"]+)"/g, ` <span class="${hlProp}">variant</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ align="([^"]+)"/g, ` <span class="${hlProp}">align</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ side="([^"]+)"/g, ` <span class="${hlProp}">side</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ openDelay=\{([^}]+)\}/g, ` <span class="${hlProp}">openDelay</span>={<span class="${hlVal}">$1</span>}`)
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / src="([^"]+)"/g,
+      ` <span class="${hlProp}">src</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / variant="([^"]+)"/g,
+      ` <span class="${hlProp}">variant</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / align="([^"]+)"/g,
+      ` <span class="${hlProp}">align</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / side="([^"]+)"/g,
+      ` <span class="${hlProp}">side</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / openDelay=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">openDelay</span>={<span class="${hlVal}">$1</span>}`,
+    )
     .replace(/ asChild/g, ` <span class="${hlProp}">asChild</span>`);
 
   return (
@@ -111,11 +170,14 @@ ${innerJSX}
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full xl:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-
-            <h3 className="text-md font-medium text-muted-foreground">Placement</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Placement
+            </h3>
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Alignment</span>
               <div className="grid grid-cols-3 gap-2">
@@ -179,7 +241,9 @@ ${innerJSX}
 
             <div className="border-t border-border/50 my-2" />
 
-            <h3 className="text-md font-medium text-muted-foreground">Behavior</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Behavior
+            </h3>
 
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Open Delay (ms)</span>
@@ -207,10 +271,10 @@ ${innerJSX}
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                700ms is the Radix default to prevent accidental triggers while moving the mouse.
+                700ms is the Radix default to prevent accidental triggers while
+                moving the mouse.
               </p>
             </div>
-
           </div>
         </div>
 
@@ -221,7 +285,9 @@ ${innerJSX}
           <div className="relative z-10 w-full flex justify-center">
             <HoverCard openDelay={openDelay} closeDelay={100}>
               <HoverCardTrigger asChild>
-                <Button variant="link" className="text-lg">@shadcn</Button>
+                <Button variant="link" className="text-lg">
+                  @shadcn
+                </Button>
               </HoverCardTrigger>
               <HoverCardContent className="w-80" align={align} side={side}>
                 <div className="flex justify-between space-x-4">
@@ -232,7 +298,8 @@ ${innerJSX}
                   <div className="space-y-1">
                     <h4 className="text-sm font-semibold">@shadcn</h4>
                     <p className="text-sm">
-                      Beautifully designed components that you can copy and paste into your apps.
+                      Beautifully designed components that you can copy and
+                      paste into your apps.
                     </p>
                     <div className="flex items-center pt-2 text-muted-foreground">
                       <Calendar className="mr-2 size-4" />
@@ -248,7 +315,9 @@ ${innerJSX}
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"

@@ -1,8 +1,8 @@
-import BreadcrumbNavigation from '../BreadcrumbNavigation';
-import Logo from './Logo';
-import MenuSheet from './MenuSheet.tsx';
-import NavLinks from './NavLInks';
-import ThemeToggle from './ThemeToggle';
+import BreadcrumbNavigation from "../BreadcrumbNavigation";
+import Logo from "./Logo";
+import MenuSheet from "./MenuSheet.tsx";
+import NavLinks from "./NavLInks";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   return (

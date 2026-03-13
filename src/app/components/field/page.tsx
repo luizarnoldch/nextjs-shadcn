@@ -17,7 +17,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
 export default function FieldDemoPage() {
-  const [orientation, setOrientation] = useState<"vertical" | "horizontal" | "responsive">("vertical");
+  const [orientation, setOrientation] = useState<
+    "vertical" | "horizontal" | "responsive"
+  >("vertical");
   const [state, setState] = useState<"default" | "invalid">("default");
   const [showDescription, setShowDescription] = useState(true);
 
@@ -39,15 +41,23 @@ export default function FieldDemoPage() {
     // Field 1 (Email)
     const invalidAttr = state === "invalid" ? ` data-invalid={true}` : "";
     parts.push(`        <Field orientation="${orientation}"${invalidAttr}>`);
-    parts.push(`          <FieldLabel htmlFor="email">Email Address</FieldLabel>`);
+    parts.push(
+      `          <FieldLabel htmlFor="email">Email Address</FieldLabel>`,
+    );
     parts.push(`          <FieldContent>`);
-    parts.push(`            <Input id="email" type="email" placeholder="name@example.com" />`);
+    parts.push(
+      `            <Input id="email" type="email" placeholder="name@example.com" />`,
+    );
     parts.push(`          </FieldContent>`);
     if (showDescription) {
-      parts.push(`          <FieldDescription>Your primary contact email.</FieldDescription>`);
+      parts.push(
+        `          <FieldDescription>Your primary contact email.</FieldDescription>`,
+      );
     }
     if (state === "invalid") {
-      parts.push(`          <FieldError errors={[{ message: "Please enter a valid email address." }]} />`);
+      parts.push(
+        `          <FieldError errors={[{ message: "Please enter a valid email address." }]} />`,
+      );
     }
     parts.push(`        </Field>`);
 
@@ -61,9 +71,13 @@ export default function FieldDemoPage() {
     parts.push(`          <div className="flex items-start gap-2 pt-1">`);
     parts.push(`            <Checkbox id="marketing" className="mt-1" />`);
     parts.push(`            <div className="grid gap-1.5">`);
-    parts.push(`              <FieldLabel htmlFor="marketing">Marketing emails</FieldLabel>`);
+    parts.push(
+      `              <FieldLabel htmlFor="marketing">Marketing emails</FieldLabel>`,
+    );
     if (showDescription) {
-      parts.push(`              <FieldDescription>Receive emails about new products, features, and more.</FieldDescription>`);
+      parts.push(
+        `              <FieldDescription>Receive emails about new products, features, and more.</FieldDescription>`,
+      );
     }
     parts.push(`            </div>`);
     parts.push(`          </div>`);
@@ -106,41 +120,84 @@ ${innerJSX}
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/import/g, `<span class="${hlKw}">import</span>`)
-    .replace(/export default function/g, `<span class="${hlKw}">export default function</span>`)
+    .replace(
+      /export default function/g,
+      `<span class="${hlKw}">export default function</span>`,
+    )
     .replace(/function/g, `<span class="${hlKw}">function</span>`)
     .replace(/return/g, `<span class="${hlKw}">return</span>`)
     // Tags
-    .replace(/&lt;(\/?)Field([A-Za-z]*)(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Field$2</span>$3&gt;`)
-    .replace(/&lt;(\/?)Input(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Input</span>$2&gt;`)
-    .replace(/&lt;(\/?)Checkbox(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">Checkbox</span>$2&gt;`)
-    .replace(/&lt;(\/?)div(.*?)&gt;/g, `&lt;$1<span class="${hlTag}">div</span>$2&gt;`)
+    .replace(
+      /&lt;(\/?)Field([A-Za-z]*)(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Field$2</span>$3&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Input(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Input</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)Checkbox(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">Checkbox</span>$2&gt;`,
+    )
+    .replace(
+      /&lt;(\/?)div(.*?)&gt;/g,
+      `&lt;$1<span class="${hlTag}">div</span>$2&gt;`,
+    )
     // Attributes
-    .replace(/ className="([^"]+)"/g, ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ id="([^"]+)"/g, ` <span class="${hlProp}">id</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ type="([^"]+)"/g, ` <span class="${hlProp}">type</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ placeholder="([^"]+)"/g, ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ orientation="([^"]+)"/g, ` <span class="${hlProp}">orientation</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ htmlFor="([^"]+)"/g, ` <span class="${hlProp}">htmlFor</span>="<span class="${hlVal}">$1</span>"`)
-    .replace(/ data-invalid=\{([^}]+)\}/g, ` <span class="${hlProp}">data-invalid</span>={<span class="${hlVal}">$1</span>}`)
-    .replace(/ errors=\{([^}]+)\}/g, ` <span class="${hlProp}">errors</span>={<span class="${hlVal}">$1</span>}`);
+    .replace(
+      / className="([^"]+)"/g,
+      ` <span class="${hlProp}">className</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / id="([^"]+)"/g,
+      ` <span class="${hlProp}">id</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / type="([^"]+)"/g,
+      ` <span class="${hlProp}">type</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / placeholder="([^"]+)"/g,
+      ` <span class="${hlProp}">placeholder</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / orientation="([^"]+)"/g,
+      ` <span class="${hlProp}">orientation</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / htmlFor="([^"]+)"/g,
+      ` <span class="${hlProp}">htmlFor</span>="<span class="${hlVal}">$1</span>"`,
+    )
+    .replace(
+      / data-invalid=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">data-invalid</span>={<span class="${hlVal}">$1</span>}`,
+    )
+    .replace(
+      / errors=\{([^}]+)\}/g,
+      ` <span class="${hlProp}">errors</span>={<span class="${hlVal}">$1</span>}`,
+    );
 
   return (
     <div className="flex flex-col gap-6 p-4">
       <div className="grid gap-1">
         <h1 className="text-3xl font-bold tracking-tight">Field Components</h1>
         <p className="text-muted-foreground">
-          A powerful suite of unstyled components for robust form structures, labels, and error tracking.
+          A powerful suite of unstyled components for robust form structures,
+          labels, and error tracking.
         </p>
       </div>
 
       <div className="flex flex-col xl:flex-row gap-8 mt-6">
         {/* Controls */}
         <div className="flex flex-col gap-6 w-full xl:w-[400px] p-6 border rounded-lg bg-card shadow-sm h-fit">
-          <h2 className="text-xl font-semibold mb-2 border-b pb-2">Configuration</h2>
+          <h2 className="text-xl font-semibold mb-2 border-b pb-2">
+            Configuration
+          </h2>
 
           <div className="flex flex-col gap-4">
-
-            <h3 className="text-md font-medium text-muted-foreground">Layout</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Layout
+            </h3>
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">Orientation</span>
               <div className="grid grid-cols-3 gap-2">
@@ -166,17 +223,23 @@ ${innerJSX}
                   Responsive
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">Responsive shifts from col to row on MD breakpoint.</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Responsive shifts from col to row on MD breakpoint.
+              </p>
             </div>
 
             <div className="border-t border-border/50 my-2" />
 
-            <h3 className="text-md font-medium text-muted-foreground">Form State</h3>
+            <h3 className="text-md font-medium text-muted-foreground">
+              Form State
+            </h3>
 
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Validation</span>
-                <span className="text-xs text-muted-foreground">Simulate field errors</span>
+                <span className="text-xs text-muted-foreground">
+                  Simulate field errors
+                </span>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -199,7 +262,9 @@ ${innerJSX}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Show Description</span>
-                <span className="text-xs text-muted-foreground">Helper text visibility</span>
+                <span className="text-xs text-muted-foreground">
+                  Helper text visibility
+                </span>
               </div>
               <Button
                 variant={showDescription ? "default" : "secondary"}
@@ -209,7 +274,6 @@ ${innerJSX}
                 {showDescription ? "Enabled" : "Disabled"}
               </Button>
             </div>
-
           </div>
         </div>
 
@@ -218,21 +282,33 @@ ${innerJSX}
           <div className="absolute inset-0 bg-grid-zinc-200/50 dark:bg-grid-zinc-800/50 bg-size-[20px_20px]" />
 
           <div className="relative z-10 w-full flex justify-center p-8 bg-card border rounded-xl shadow-sm min-w-[350px] overflow-hidden">
-
             <FieldSet className="w-full">
               <FieldLegend>Account Settings</FieldLegend>
 
               <FieldGroup>
-                <Field orientation={orientation} data-invalid={state === "invalid"}>
+                <Field
+                  orientation={orientation}
+                  data-invalid={state === "invalid"}
+                >
                   <FieldLabel htmlFor="email">Email Address</FieldLabel>
                   <FieldContent>
-                    <Input id="email" type="email" placeholder="name@example.com" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="name@example.com"
+                    />
                   </FieldContent>
                   {showDescription && (
-                    <FieldDescription>Your primary contact email.</FieldDescription>
+                    <FieldDescription>
+                      Your primary contact email.
+                    </FieldDescription>
                   )}
                   {state === "invalid" && (
-                    <FieldError errors={[{ message: "Please enter a valid email address." }]} />
+                    <FieldError
+                      errors={[
+                        { message: "Please enter a valid email address." },
+                      ]}
+                    />
                   )}
                 </Field>
 
@@ -242,23 +318,28 @@ ${innerJSX}
                   <div className="flex items-start gap-2 pt-1 transition-all">
                     <Checkbox id="marketing" className="mt-1" />
                     <div className="grid gap-1.5 flex-1">
-                      <FieldLabel htmlFor="marketing">Marketing emails</FieldLabel>
+                      <FieldLabel htmlFor="marketing">
+                        Marketing emails
+                      </FieldLabel>
                       {showDescription && (
-                        <FieldDescription>Receive emails about new products, features, and more.</FieldDescription>
+                        <FieldDescription>
+                          Receive emails about new products, features, and more.
+                        </FieldDescription>
                       )}
                     </div>
                   </div>
                 </Field>
               </FieldGroup>
             </FieldSet>
-
           </div>
         </div>
       </div>
 
       <div className="mt-4 p-6 border rounded-lg bg-zinc-950 text-zinc-50 overflow-x-auto w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">Generated Code</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">
+            Generated Code
+          </h2>
           <Button
             variant="secondary"
             size="sm"
