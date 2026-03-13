@@ -15,8 +15,6 @@ const FileDropZoneSaveButton = () => {
   const [isSaving, setIsSaving] = useState(false)
   const uploadableFiles = queue.filter(item => item.origin === 'local' && !!item.file && !!item.presignURL);
 
-  console.log(uploadableFiles)
-
   const handleSave = async () => {
     if (uploadableFiles.length === 0) return
     setIsSaving(true)

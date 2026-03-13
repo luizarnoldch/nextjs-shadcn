@@ -5,6 +5,7 @@ import { X, File as FileIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FileItem, useStoreRemoveFileFromQueue } from "../../stores/file.store";
 import Image from "next/image";
+import useDeleteFile from "../../hooks/useDeleteFile";
 
 type Props = {
   file: FileItem;
@@ -12,12 +13,11 @@ type Props = {
 
 export const FileDropZoneQueueItem = ({ file }: Props) => {
   const removeFileFromQueue = useStoreRemoveFileFromQueue();
-
-  const isImage = file.type.startsWith("image/");
+  const { mutateAsync: deleteFile } = useDeleteFile();
 
   return (
     <div className="relative shrink-0 w-32 h-32 rounded-lg border bg-muted/30 overflow-hidden group shadow-sm flex items-center justify-center">
-      {isImage && file.url ? (
+      {file.url ? (
         <Image
           src={file.url}
           alt={file.name}
@@ -45,6 +45,7 @@ export const FileDropZoneQueueItem = ({ file }: Props) => {
         onClick={(e) => {
           e.stopPropagation();
           removeFileFromQueue(file.id);
+          deleteFile({ id: file.id });
         }}
       >
         <X className="h-4 w-4" />
