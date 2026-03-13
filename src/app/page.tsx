@@ -10,6 +10,7 @@ import {
 const links = [
   { href: '/custom', label: 'Custom Components', description: 'Library of Custom Components' },
   { href: '/components', label: 'UI Components', description: 'Shadcn UI Component Library' },
+  { href: '/features/file-upload', label: 'File Upload', description: 'File Upload System' },
 ];
 
 export default function Home() {
