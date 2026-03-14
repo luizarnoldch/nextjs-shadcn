@@ -1,0 +1,1 @@
+export { ProfileImageCropper as default } from './ProfileImageCropper';
