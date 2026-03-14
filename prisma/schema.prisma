@@ -32,3 +32,37 @@ model File {
 
   @@map("file")
 }
+
+model Task {
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("task")
+}
+
+enum TestEnum {
+  OPTION_A
+  OPTION_B
+  OPTION_C
+}
+
+model FormTest {
+  id            String   @id @default(uuid())
+  textField     String
+  numberField   Int
+  decimalField  Decimal
+  floatField    Float
+  booleanField  Boolean
+  dateField     DateTime
+  longTextField String   @db.Text
+  jsonField     Json
+  enumField     TestEnum
+  optionalField String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("form_test")
+}

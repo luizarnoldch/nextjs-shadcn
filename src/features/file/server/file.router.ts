@@ -89,7 +89,7 @@ export const fileRouter = createTRPCRouter({
       try {
         const { id, ...data } = input;
 
-        const currentData: UpdateFileType = { ...data };
+        const currentData = { ...data };
 
         if (data.visibility === FileVisibility.PUBLIC && data.key) {
           const { bucketName, serverUrl, port } = ctx.config.minio;

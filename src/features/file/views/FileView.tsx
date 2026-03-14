@@ -6,7 +6,7 @@ import FileTable from "../components/FileTable";
 import FileDropZone from "../components/FileDropZone";
 import FileCompression from "../components/FileCompression";
 
-export default function FileView() {
+export default async function FileView() {
   return (
     <HydrateFiles>
       <FileLayout>

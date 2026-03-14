@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
-  CarouselDots,
+  // CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
@@ -33,7 +33,7 @@ export default function CarouselSize() {
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
-      <CarouselDots />
+      {/* <CarouselDots /> */}
     </Carousel>
   );
 }
