@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function FileLayout({
+export default async function FileLayout({
   children,
 }: {
   children: React.ReactNode;

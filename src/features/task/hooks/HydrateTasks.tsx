@@ -1,13 +1,13 @@
 import { HydrateClient, prefetch, trpc } from "@/trpc/server";
 import { ReactNode } from "react";
 
-type HydrateFilesProps = {
+type HydrateTasksProps = {
   children: ReactNode;
 };
 
-const HydrateFiles = async ({ children }: HydrateFilesProps) => {
-  prefetch(trpc.file.list.queryOptions());
+const HydrateTasks = async ({ children }: HydrateTasksProps) => {
+  prefetch(trpc.task.list.queryOptions());
   return <HydrateClient>{children}</HydrateClient>;
 };
 
-export default HydrateFiles;
+export default HydrateTasks;

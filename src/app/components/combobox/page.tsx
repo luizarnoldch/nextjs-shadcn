@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Combobox,
   ComboboxInput,
@@ -56,7 +56,7 @@ export default function ComboboxDemoPage() {
         `          const label = frameworks.find((f) => f.value === v)?.label\n`,
       );
       parts.push(`          return (`);
-      parts.push(`            <ComboboxChip key={v} value={v}>`);
+      parts.push(`            <ComboboxChip key={v}>`);
       parts.push(`              {label}`);
       parts.push(`            </ComboboxChip>`);
       parts.push(`          )`);
@@ -272,7 +272,7 @@ ${innerJSX}
                   {values.map((v) => {
                     const label = frameworks.find((f) => f.value === v)?.label;
                     return (
-                      <ComboboxChip key={v} value={v}>
+                      <ComboboxChip key={v}>
                         {label}
                       </ComboboxChip>
                     );

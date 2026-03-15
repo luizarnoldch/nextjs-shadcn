@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
-  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
@@ -28,7 +27,6 @@ export default function CarouselDemo() {
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
-      <CarouselDots />
     </Carousel>
   );
 }
