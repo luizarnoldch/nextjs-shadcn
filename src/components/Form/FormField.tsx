@@ -1,4 +1,6 @@
-import * as React from "react"
+"use client"
+
+import { ComponentProps, ReactNode } from "react"
 import {
   Field,
   FieldDescription,
@@ -6,56 +8,68 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { cn } from "@/lib/utils"
+import { ReactFormExtendedApi } from "@tanstack/react-form"
 
-export interface FormFieldProps extends React.ComponentProps<typeof Field> {
-  label?: React.ReactNode
-  description?: React.ReactNode
-  error?: string | string[] | { message?: string } | { message?: string }[]
+type FormFieldProps = {
+  form: ReactFormExtendedApi<any, any, any, any, any, any, any, any, any, any, any, any>
+  fieldName: string
+  label?: ReactNode
+  description?: ReactNode
   htmlFor?: string
+  fieldClassName?: string
   labelClassName?: string
   descriptionClassName?: string
   errorClassName?: string
+  children: ReactNode
+  fieldProps?: ComponentProps<typeof Field>
+  labelProps?: ComponentProps<typeof FieldLabel>
+  descriptionProps?: ComponentProps<typeof FieldDescription>
+  errorProps?: ComponentProps<typeof FieldError>
 }
 
-export function FormField({
+const FormField = ({
+  form,
+  fieldName,
   label,
   description,
-  error,
   htmlFor,
   children,
-  className,
+  fieldClassName,
   labelClassName,
   descriptionClassName,
   errorClassName,
-  orientation = "vertical",
-  ...props
-}: FormFieldProps) {
-  const errors = Array.isArray(error)
-    ? error.map((e) => (typeof e === "string" ? { message: e } : e))
-    : typeof error === "string"
-      ? [{ message: error }]
-      : error && "message" in error
-        ? [error]
-        : undefined
-
+  fieldProps,
+  labelProps,
+  descriptionProps,
+  errorProps,
+}: FormFieldProps) => {
   return (
-    <Field
-      orientation={orientation}
-      className={cn(className)}
-      {...props}
-    >
-      {label && (
-        <FieldLabel htmlFor={htmlFor} className={cn(labelClassName)}>
-          {label}
-        </FieldLabel>
-      )}
-      {children}
-      {description && (
-        <FieldDescription className={cn(descriptionClassName)}>
-          {description}
-        </FieldDescription>
-      )}
-      {errors && <FieldError errors={errors} className={cn(errorClassName)} />}
-    </Field>
+    <form.Field
+      name={fieldName}
+      children={(field) => {
+        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+        return (
+          <Field
+            className={cn(fieldClassName)}
+            {...fieldProps}
+          >
+            {label && (
+              <FieldLabel htmlFor={htmlFor} className={cn(labelClassName)} {...labelProps}>
+                {label}
+              </FieldLabel>
+            )}
+            {children}
+            {description && (
+              <FieldDescription className={cn(descriptionClassName)} {...descriptionProps}>
+                {description}
+              </FieldDescription>
+            )}
+            {isInvalid && <FieldError errors={field.state.meta.errors} className={cn(errorClassName)} {...errorProps} />}
+          </Field>
+        )
+      }}
+    />
   )
 }
+
+export default FormField

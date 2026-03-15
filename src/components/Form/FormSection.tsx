@@ -7,40 +7,48 @@ import {
 } from "@/components/ui/field"
 import { cn } from "@/lib/utils"
 
-export interface FormSectionProps
-  extends Omit<React.ComponentProps<"fieldset">, "title"> {
-  title?: React.ReactNode
+type FormSectionProps = {
+  legend?: React.ReactNode
   description?: React.ReactNode
-  legendVariant?: "legend" | "label"
-  titleClassName?: string
-  descriptionClassName?: string
-  groupClassName?: string
+  fieldgroupClassName?: string
+  fieldgroupProps?: React.ComponentProps<typeof FieldGroup>
+  children: React.ReactNode
+  fieldsetClassName?: string
+  fieldsetProps?: React.ComponentProps<typeof FieldSet>
+  fieldlegendClassName?: string
+  fieldlegendProps?: React.ComponentProps<typeof FieldLegend>
+  fielddescriptionClassName?: string
+  fielddescriptionProps?: React.ComponentProps<typeof FieldDescription>
 }
 
-export function FormSection({
-  title,
+const FormSection = ({
+  legend,
   description,
-  legendVariant = "legend",
   children,
-  className,
-  titleClassName,
-  descriptionClassName,
-  groupClassName,
-  ...props
-}: FormSectionProps) {
+  fieldsetClassName,
+  fieldgroupClassName,
+  fieldsetProps,
+  fieldgroupProps,
+  fieldlegendClassName,
+  fieldlegendProps,
+  fielddescriptionClassName,
+  fielddescriptionProps,
+}: FormSectionProps) => {
   return (
-    <FieldSet className={cn(className)} {...props}>
-      {title && (
-        <FieldLegend variant={legendVariant} className={cn(titleClassName)}>
-          {title}
+    <FieldSet className={cn(fieldsetClassName)} {...fieldsetProps}>
+      {legend && (
+        <FieldLegend className={cn(fieldlegendClassName)} {...fieldlegendProps}>
+          {legend}
         </FieldLegend>
       )}
       {description && (
-        <FieldDescription className={cn(descriptionClassName)}>
+        <FieldDescription className={cn(fielddescriptionClassName)} {...fielddescriptionProps}>
           {description}
         </FieldDescription>
       )}
-      <FieldGroup className={cn(groupClassName)}>{children}</FieldGroup>
+      <FieldGroup className={cn(fieldgroupClassName)} {...fieldgroupProps}>{children}</FieldGroup>
     </FieldSet>
   )
 }
+
+export default FormSection
