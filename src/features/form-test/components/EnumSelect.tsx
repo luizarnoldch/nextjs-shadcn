@@ -18,7 +18,7 @@ type EnumSelectProps = {
 
 export default function EnumSelect({ name, value, onValueChange, options }: EnumSelectProps) {
   return (
-    <Select name={name} value={value} onValueChange={onValueChange}>
+    <Select name={name} value={value} onValueChange={onValueChange} defaultValue={options[0]}>
       <SelectTrigger id={name} className="bg-white/5 border-white/10 w-full">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>

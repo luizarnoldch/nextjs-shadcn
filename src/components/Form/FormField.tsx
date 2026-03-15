@@ -8,19 +8,20 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { cn } from "@/lib/utils"
-import { ReactFormExtendedApi } from "@tanstack/react-form"
+import { ReactFormExtendedApi, FieldApi } from "@tanstack/react-form"
 
 type FormFieldProps = {
   form: ReactFormExtendedApi<any, any, any, any, any, any, any, any, any, any, any, any>
+  descriptionLocation?: "top" | "bottom"
   fieldName: string
   label?: ReactNode
   description?: ReactNode
-  htmlFor?: string
+  className?: string
   fieldClassName?: string
   labelClassName?: string
   descriptionClassName?: string
   errorClassName?: string
-  children: ReactNode
+  children: ((field: FieldApi<any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any>) => ReactNode)
   fieldProps?: ComponentProps<typeof Field>
   labelProps?: ComponentProps<typeof FieldLabel>
   descriptionProps?: ComponentProps<typeof FieldDescription>
@@ -31,8 +32,9 @@ const FormField = ({
   form,
   fieldName,
   label,
+  descriptionLocation = "top",
   description,
-  htmlFor,
+  className,
   children,
   fieldClassName,
   labelClassName,
@@ -50,21 +52,26 @@ const FormField = ({
         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
         return (
           <Field
-            className={cn(fieldClassName)}
+            className={cn(className, fieldClassName)}
             {...fieldProps}
           >
             {label && (
-              <FieldLabel htmlFor={htmlFor} className={cn(labelClassName)} {...labelProps}>
+              <FieldLabel htmlFor={field.name} className={cn(labelClassName)} {...labelProps}>
                 {label}
               </FieldLabel>
             )}
-            {children}
-            {description && (
+            {children(field)}
+            {description && descriptionLocation === "top" && (
               <FieldDescription className={cn(descriptionClassName)} {...descriptionProps}>
                 {description}
               </FieldDescription>
             )}
             {isInvalid && <FieldError errors={field.state.meta.errors} className={cn(errorClassName)} {...errorProps} />}
+            {description && descriptionLocation === "bottom" && (
+              <FieldDescription className={cn(descriptionClassName)} {...descriptionProps}>
+                {description}
+              </FieldDescription>
+            )}
           </Field>
         )
       }}
